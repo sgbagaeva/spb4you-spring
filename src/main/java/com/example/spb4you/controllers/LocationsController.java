@@ -1,8 +1,6 @@
 package com.example.spb4you.controllers;
 
-import com.example.spb4you.models.Category;
 import com.example.spb4you.models.Location;
-import com.example.spb4you.services.CategoryService;
 import com.example.spb4you.services.LocationService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/locations")
