@@ -12,8 +12,8 @@ function toggleLike(imgElement, locationId, userId) {
     imgElement.setAttribute('src', isLiking ? '/elements/liked.svg' : '/elements/notLiked.svg');
 
     const url = isLiking
-        ? `/user/${userId}/like-locations/${locationId}`
-        : `/user/${userId}/unlike-locations/${locationId}`;
+        ? `/users/${userId}/like-locations/${locationId}`
+        : `/users/${userId}/unlike-locations/${locationId}`;
 
     console.log(`Sending request to: ${url}`);
 
