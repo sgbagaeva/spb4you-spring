@@ -1,0 +1,38 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.0'
+	id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter' // Замените на актуальную версию
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:3.0.12'
+	//implementation 'com.google.code.gson:gson:2.10.1' // Gson - библиотека для сериализации и десериализации объектов Java в JSON и обратно
+	//Spring Boot Starter Data JPA - набор зависимостей, объединяющий JPA и Spring Data для работы с базами данных
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.6.6'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	// Spring Boot Starter Web - библиотека для создания веб-приложений на основе Spring MVC, включая RESTful API
+	implementation 'org.springframework.boot:spring-boot-starter-websocket:2.5.6' // Spring Boot Starter WebSocket - библиотека для разработки приложений с поддержкой WebSocket
+	//developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.6' // Spring Boot DevTools - инструменты для повышения продуктивности разработки, включая автоматическую перезагрузку
+	implementation 'mysql:mysql-connector-java:8.0.28' // MySQL Connector/J - JDBC драйвер для доступа к базе данных MySQL
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.6' // Spring Boot Starter Test - набор инструментов для тестирования приложений на Spring, включая JUnit и Mockito
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.7.2' // JUnit Platform Launcher - обеспечивает запуск тестов на платформе JUnit
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

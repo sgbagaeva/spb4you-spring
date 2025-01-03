@@ -1,0 +1,860 @@
+openapi: 3.0.3
+info:
+  title: API spb4you 3.0
+  version: 1.0.11
+  description: Все необходимые API для сайта Питер_Для_Тебя
+  
+tags:
+  - name: LocationsController # Локации
+  - name: RoutesController # Маршруты
+  - name: UsersController # Пользователи
+  - name: TagsController # Теги
+  - name: CategoriesController # Категории
+    
+paths:
+  /locations/info/list:
+    get:
+      tags:
+        - LocationsController
+      summary: Получение информации обо всех локациях
+      description: Возвращает список всех локаций со всеми полями для каждой
+      responses:
+        '200':
+          description: Успешный ответ с детальным списком локаций
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+
+  /locations/info/{locationId}:
+    get:
+      tags:
+        - LocationsController
+      summary: Получение информации об определенной локации
+      description: Возвращает набор полей локации по соответствующему id
+      parameters:
+        - name: locationId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный ответ со списком полей определенной локации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+  
+  /locations/{locationId}:
+    get:
+      tags:
+        - LocationsController
+      summary: Получение страницы определенной локации
+      description: Возвращает страницу локации по соответствующему id
+      parameters:
+        - name: locationId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный ответ и вывод страницы локации
+          
+  /locations/map:
+    get:
+      tags:
+        - LocationsController
+      summary: Получение карты с меткой локации
+      description: Возвращает страницу карты соответствующей локации
+      responses:
+        '200':
+          description: Успешный ответ и вывод страницы карты
+  
+  /locations/info/listbytag/{tagId}:
+    get:
+      tags:
+        - LocationsController
+      summary: Получение списка локаций с определенным тегом
+      description: Возвращает список всех локаций с определенным тегом
+      parameters:
+        - name: tagId
+          in: path
+          required: true
+          description: Уникальный идентификатор тега
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешное получение списка локаций
+        '404':
+          description: Тег не найден
+
+  /routes/info/list:
+    get:
+      tags:
+        - RoutesController
+      summary: Получение информации обо всех маршрутах
+      description: Возвращает список всех маршрутов со всеми полями для каждого
+      responses:
+        '200':
+          description: Успешный ответ с детальным списком всех маршрутов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Route'
+
+  /routes/info/{routeId}:
+    get:
+      tags:
+        - RoutesController
+      summary: Получение информации об определенном маршруте
+      description: Возвращает набор полей маршрута по соответствующему id
+      parameters:
+        - name: routeId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный ответ со списком полей определенной локации
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+  
+  /routes/{routeId}:
+    get:
+      tags:
+        - RoutesController
+      summary: Получение страницы определенного маршрута
+      description: Возвращает страницу маршрута по соответствующему id
+      parameters:
+        - name: routeId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный ответ и вывод страницы маршрута
+          
+  /routes/map:
+    get:
+      tags:
+        - RoutesController
+      summary: Получение карты с маршрутом
+      description: Возвращает страницу карты для соответствующего маршрута
+      responses:
+        '200':
+          description: Успешный ответ и вывод страницы карты
+
+  /routes/info/listbytag/{tagId}:
+    get:
+      tags:
+        - RoutesController
+      summary: Получение списка маршрутов с определенным тегом
+      description: Возвращает список всех маршрутов с определенным тегом
+      parameters:
+        - name: tagId
+          in: path
+          required: true
+          description: Уникальный идентификатор тега
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешное получение списка маршрутов
+        '404':
+          description: Тег не найден
+
+  /users/info/list:
+    get:
+      tags:
+        - UsersController
+      summary: Получение информации обо всех пользователях
+      description: Возвращает список всех пользователей со всеми полями для каждого
+      responses:
+        '200':
+          description: Успешный ответ с детальным списком пользователей
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+
+  /users/info/{userId}:
+    get:
+      tags:
+        - UsersController
+      summary: Получить информацию об определенном пользователе
+      description: Возвращает данные пользователя по id
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Уникальный идентификатор пользователя
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешное получение информации о пользователе
+        '404':
+          description: Пользователь не найден
+          
+  /users/registry:
+    get:
+      tags:
+        - UsersController
+      summary: Получение формы регистрации
+      description: Возвращает страницу с формой регистрации
+      responses:
+        '200':
+          description: Страница с формой регистрации
+        '500':
+          description: Ошибка сервера
+
+    post:
+      tags:
+        - UsersController
+      summary: Регистрация нового пользователя
+      description: Позволяет новому пользователю зарегистрироваться в системе.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "Света"
+                email:
+                  type: string
+                  description: Электронная почта пользователя
+                  nullable: true
+                  example: "sveta@gmail.com"
+                password:
+                  type: string
+                  writeOnly: true
+                  example: "666#999"
+              required:  # Обязательные поля
+                - username
+                - email
+                - password
+      responses:
+        '201':
+          description: Успешная регистрация
+        '400':
+          description: Ошибка валидации данных
+
+  /users/login:
+    get:
+      tags:
+        - UsersController
+      summary: Получение формы авторизации
+      description: Возвращает страницу с формой для входа в аккаунт
+      responses:
+        '200':
+          description: Страница с формой авторизации
+        '500':
+          description: Ошибка сервера
+
+    post:
+      tags:
+        - UsersController
+      summary: Авторизация пользователя
+      description: Авторизует пользователя и перенаправляет на соответствующую главную страницу.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Света"
+                password:
+                  type: string
+                  example: "666#999"
+              required:  # Обязательные поля
+                - username
+                - password
+      responses:
+        '200':
+          description: Успешная авторизация
+        '401':
+          description: Неверные учетные данные
+          
+  /users/index/{userId}:
+    get:
+      tags:
+        - UsersController
+      summary: Получить главную страницу пользователя
+      description: Возвращает главную страницу пользователя по id
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Уникальный идентификатор пользователя
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешное получение главной страницы пользователя
+
+  /users/cabinet/{userId}:
+    get:
+      tags:
+        - UsersController
+      summary: Получить страницу личного кабинета пользователя
+      description: Возвращает страницу личного кабинета пользователя по id
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Уникальный идентификатор пользователя
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешное получение страницы личного кабинета пользователя
+
+  /users/{userId}/like-locations/{locationId}:
+    post:
+      tags:
+        - UsersController
+      summary: Добавить лайк на локацию пользователем
+      description: Добавляет лайк к указанной локации для данного пользователя по их id
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description:  Уникальный идентификатор пользователя
+          schema:
+            type: integer
+        - name: locationId
+          in: path
+          required: true
+          description:  Уникальный идентификатор локации
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Локация успешно добавлена в список избранных
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Location liked."
+        '400':
+          description: Локация уже лайкнута пользователем или не найдена
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Location already liked."
+        '404':
+          description: Пользователь не найден
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "User not found."
+        '500':
+          description: Ошибка сервера
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Internal server error."
+          
+  /users/{userId}/unlike-locations/{locationId}:
+    post:
+      tags: 
+        - UsersController
+      summary: Удалить лайк с локации пользователем
+      description: Удаляет лайк с указанной локации для данного пользователя по их ID.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Уникальный идентификатор пользователя
+          schema:
+            type: integer
+        - name: locationId
+          in: path
+          required: true
+          description:  Уникальный идентификатор локации
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Локация успешно удалена из списка избранных
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Location unliked."
+        '400':
+          description: Локация не была лайкнута пользователем или не найдена
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "Location not liked yet."
+        '404':
+          description: Пользователь не найден
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "User not found."
+
+  /users/{userId}/like-locations:
+    get:
+      tags:
+        - UsersController
+      summary: Получить страницу с избранными локациями пользователя
+      description: Возвращает страницу с локациями, которые пользователь добавил в избранное по его id
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Уникальный идентификатор пользователя
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Страница с избранными локациями пользователя
+        '302':
+          description: Страница ошибки, если пользователь не найден
+        '500':
+          description: Ошибка сервера
+
+  /users/{userId}/likes:
+    get:
+      tags:
+        - UsersController
+      summary: Получить страницу "избранное" пользователя
+      description: Возвращает страницу "избранное" по id пользователя
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: Уникальный идентификатор пользователя
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Страница "избранное" пользователя
+        '302':
+          description: Страница ошибки, если пользователь не найден
+        '500':
+          description: Ошибка сервера
+  
+  /tags/info/list:
+    get:
+      tags:
+        - TagsController
+      summary: Получение информации обо всех тегах
+      description: Возвращает список всех тегов со всеми полями для каждой
+      responses:
+        '200':
+          description: Успешный ответ с детальным списком тегов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+
+  /tags/info/{tagId}:
+    get:
+      tags:
+        - TagsController
+      summary: Получение информации об определенном теге
+      description: Возвращает набор полей тега по соответствующему id
+      parameters:
+        - name: tagId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный ответ со списком полей определенного тега
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+  
+  /tags:
+    get:
+      tags:
+        - TagsController
+      summary: Получить страницу со списком тегов
+      description: Возвращает страницу со списком тегов
+      responses:
+        '200':
+          description: Успешное получение страницы со списком
+          
+  /tags/{tagId}:
+    get:
+      tags:
+        - TagsController
+      summary: Получение страницы с локациями по тегу
+      description: Возвращает страницу со списком локаций по id определенного тега
+      parameters:
+        - name: tagId
+          in: path
+          required: true
+          description: Уникальный идентификатор тега
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный ответ и вывод страницы с локациями по тегу
+          
+  /categories/info/list:
+    get:
+      tags:
+        - CategoriesController
+      summary: Получение информации обо всех категориях
+      description: Возвращает список всех категорий со всеми полями для каждой
+      responses:
+        '200':
+          description: Успешный ответ с детальным списком категорий
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+
+  /categories/info/{categoryId}:
+    get:
+      tags:
+        - CategoriesController
+      summary: Получение информации об определенной категории
+      description: Возвращает набор полей категории по соответствующему id
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          description: Уникальный идентификатор категории
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный ответ со списком полей определенной категории
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+
+  /categories/locations:
+    get:
+      tags:
+        - CategoriesController
+      summary: Получить список категорий для выбора локаций
+      description: Возвращает страницу с категориями, тип которых 'Локации'
+      responses:
+        '200':
+          description: Страница с категориями для выбора локаций
+        '500':
+          description: Ошибка сервера
+
+  /categories/locations/{categoryId}:
+    get:
+      tags:
+        - CategoriesController
+      summary: Получить список локаций по категории
+      description: Возвращает страницу с локациями, которые принадлежат указанной категории по id категории
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          description: Уникальный идентификатор категории
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Страница с локациями для указанной категории
+        '404':
+          description: Категория не найдена
+        '500':
+          description: Ошибка сервера
+          
+  /categories/routes:
+    get:
+      tags:
+        - CategoriesController
+      summary: Получить список категорий для выбора маршрутов
+      description: Возвращает страницу с категориями, тип которых 'Маршруты'
+      responses:
+        '200':
+          description: Страница с категориями для выбора маршрутов
+        '500':
+          description: Ошибка сервера
+
+  /categories/routes/{categoryId}:
+    get:
+      tags:
+        - CategoriesController
+      summary: Получить список маршрутов по категории
+      description: Возвращает страницу с маршрутами, которые принадлежат указанной категории по id категории
+      parameters:
+        - name: categoryId
+          in: path
+          required: true
+          description: ID категории, для которой необходимо получить маршруты
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Страница с маршрутами для указанной категории
+        '404':
+          description: Категория не найдена
+        '500':
+          description: Ошибка сервера
+
+          
+components:
+  schemas:
+    Location:  # Определение сущности "Локация"
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор локации
+          example: 4
+        name:
+          type: string
+          description: Название локации
+          example: "Лофт проект ЭТАЖИ"
+        tagId:
+          type: integer
+          description: Уникальный идентификатор тега
+          example: 1
+        mainPhoto:
+          type: integer
+          description: ID основной фотографии
+          example: 135
+        photos:
+          type: array
+          items:
+            type: integer
+          description: Список ID фотографий
+          example: [21, 65, 79]
+        description:
+          type: string
+          description: Описание локации
+          example: "Самое популярное место..."
+        geoData:
+          type: array
+          items:
+            type: number
+          description: Географическая ширина и долгота
+          example: [35.8975, 45.4698]
+        additInfo:
+          type: string
+          description: Дополнительная информация
+          example: "Адрес: ... Часы работы: ..."
+        likes:
+          type: integer
+          description: Количество лайков
+          example: 125
+      required:
+        - id
+        - name
+        - tagId
+        - mainPhoto
+        - photos
+        - description
+        - geoData
+        - additInfo
+        - likes
+
+
+    Route:  # Определение сущности "Маршрут"
+      type: object
+      properties:
+        id: 
+          type: integer
+          description: Уникальный идентификатор маршрута
+          example: 15
+        name:
+          type: string
+          description: Название маршрута
+          example: "Маршрут по малым мостам центра"
+        tagId:
+          type: integer
+          description: Уникальный идентификатор тега
+          example: 12
+        mainPhoto:
+          type: integer
+          description: ID основной фотографии
+          example: 165
+        photos:
+          type: array
+          items:
+            type: integer
+          description: Список ID фотографий
+          example: [21, 65, 79]
+        description:
+          type: string
+          description: Описание маршрута
+          example: "Петербургские мосты давно стали..."
+        locations:
+          type: array
+          items:
+            type: integer
+          description: Список ID точек, входящих в маршрут
+          example: [2, 5, 7]
+        distance:
+          type: string
+          description: Длина маршрута
+          example: "25 км"
+        time:
+          type: string
+          format: Время прохождения маршрута
+          example: "12ч 15мин (пешком)"
+        steps:
+          type: string
+          description: Количество шагов
+          example: "12598 шагов"
+        likes:
+          type: integer
+          description: Количество лайков
+          example: 698
+      required:
+        - id
+        - name
+        - tagId
+        - mainPhoto
+        - photos
+        - description
+        - locations
+        - distance
+        - time
+        - steps
+        - likes
+
+    
+    Photo: # Определение сущности "Фотография"
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор сущности
+          example: 1
+        description:
+          type: string
+          description: Описание фотографии
+          example: "ГГ идут куда-то..."
+        link:
+          type: string
+          description: Ссылка на фотографию
+          example: "disk.yandex.ru/..."
+
+      required:
+        - id
+        - link
+
+        
+    Tag: # Определение сущности "Тег"
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор тега
+          example: 1
+        name:
+          type: string
+          description: Название тега
+          example: "Дворы-рестораны"
+      
+      required:
+        - id
+        - name
+        
+    Category: # Определение сущности "Категория"
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор категории
+          example: 1
+        name:
+          type: string
+          description: Название категории
+          example: "Для фото"
+        description:
+          type: string
+          description: Дополнительное описание категории
+          example: В данной подборке вы найдете для себя места, где можно сделать красивые фотографии. Различные локации на улицах и во дворах Петербурга смогут разбавить вашу ленту фотографий.
+        type:
+          type: string
+          description: Тип категории
+          example: "Локации"  
+        second_name:
+          type: string
+          description: Второе название категории
+          example: "Локации для фото"
+      required:
+        - id
+        - name
+      
+    User: # Определение сущности "Пользователь"
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Уникальный идентификатор пользователя
+          example: 1234
+        username:
+          type: string
+          description: Имя пользователя
+          example: "AlisaKuraga"
+        email:
+          type: string
+          example: "neonizzzer@gmail.com"
+        password:
+          type: string
+          description: Пароль пользователя
+          writeOnly: true
+          example: "pupupu"
+        role:
+          type: string
+          description: Роль пользователя
+          enum: [пользователь, администратор]
+          example: "администратор"
+        savedLocations:
+          type: array
+          items:
+            type: integer
+          description: Список id понравившихся локаций
+          example: [2, 5, 7]
+        savedRoutes:
+          type: array
+          items:
+            type: integer
+          description: Список id понравившихся маршрутов
+          example: [2, 5, 7]
+
+      required:
+        - id
+        - username
+        - email
+        - password
+        - role

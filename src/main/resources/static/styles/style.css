@@ -1,0 +1,930 @@
+body {
+	font-family: Unbounded, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #FBFBFB;
+	font-size: 1.2vw;
+}
+
+.flex-row {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+}
+
+.flex-column {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+section {
+	height: 100vh;
+	width: 93%;
+}
+
+#main {
+	justify-content: space-evenly;
+}
+
+#header
+ {
+	background-color: #3DA2D6;
+    border-radius: 3rem;
+    padding: 0% 2%;
+	width: 95%;
+	justify-content: space-evenly;
+	border: 1px solid #000;
+}
+
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+ul li {
+	list-style-type: none;
+}
+
+.logoIcon {
+	width: 10vw;
+}
+
+.navigation {
+	background-color: #FEF8E7;
+	border-radius: 3rem;
+    padding: 1% 2%;
+	font-weight: 300;
+	width: 68%;
+	justify-content: space-between;
+}
+
+#mainInfoWrapper {
+	justify-content: center;
+    width: 100%;
+    gap: 6vw;
+	align-items: end;
+	margin-top: 8vh;
+}
+
+#mainHeadlineText {
+	font-size: 4vw;
+    font-weight: 800;
+    margin: 0 0;
+    text-wrap-mode: nowrap;
+	margin-bottom: 30vh;
+ }
+
+ #mainDescAndBtnWrapper {
+	
+	align-items: flex-start;
+ }
+
+ #mainTextWrapper {
+	justify-content: space-evenly;
+	align-items: flex-start;
+	gap: 14vh;
+ }
+
+ #mainPhoto {
+	width: 38vw;
+ }
+
+ #mainDescText {
+	font-weight: 300;
+	position: absolute;
+    margin-bottom: 82vh;
+	font-size: 1.5vw;
+ }
+
+ #toLocationsAndRoutesBtn {
+	background-color: #1C1C1C;
+    color: #FCFAF3;
+    border-radius: 1.5vh;
+    padding: 3vh 6vh;
+	font-size: 1.6vw;
+	margin: 0 0;
+  }
+
+  #welcome {
+	background-color: #FEC556;
+    margin-top: 5vh;
+    height: 90vh;
+    border-radius: 7vh;
+  }
+
+  #welcomeHeadlineText {
+	text-align: center;
+	font-size: 2.1vw;
+	font-weight: 800;
+  }
+
+  strong {
+	background-color: #ee4823;
+	font-weight: 800;
+	font-size: 2.2vw;
+	padding: 0.25rem 0.5rem;
+  }
+
+  .welcomeText {
+	font-size: 1.8vw;
+	font-weight: 300;
+}
+
+#advantages {
+	justify-content: space-evenly;
+}
+
+#advantagesHeader {
+	font-size: 3vw;
+	font-weight: 700;
+}
+
+#advantagesAndPhotosWrapper {
+
+	justify-content: space-between;
+	gap: 5vw;
+}
+
+.advantagesPhotos {
+	height: 36vw;
+}
+
+.advantagesWrapper {
+
+
+}
+
+.advantagesText {
+	margin: 0;
+	font-size: 1.5vw;
+}
+
+.advantagesTextDotWrapper {
+	justify-content: space-between;
+    width: 44vw;
+}
+
+.allAdvantagesWrapper {
+	width: 50vw;
+	height: 36vw;
+	background-color: #EDEDED;
+	border-radius: 1.2vw;
+	justify-content: space-evenly;
+}
+
+.advantagesStick {
+	width: 44vw;
+	height: 0.2rem;
+}
+
+.dot {
+	width: 1vw;
+}
+
+#locationsAndRoutes {
+	margin-top: 10rem;
+	background-color: #EDEDED;
+	justify-content: space-evenly;
+	border-radius: 7vh;
+	height: 90vh;
+}
+
+#locationsAndRoutesHeader {
+	font-size: 3vw;
+	font-weight: 700;
+}
+
+#locationsAndRoutesWrapper {
+	justify-content: space-between;
+	gap: 8vw;
+}
+
+.locationsAndRoutesCardPhoto {
+	width: 30vw;
+}
+
+.locationsAndRoutesCardText {
+	margin-top: 22%;
+    position: absolute;
+    margin-left: 18%;
+}
+
+#locationsAndRoutesDivider {
+
+}
+
+#recommendations {
+	width: 100%;
+	height: 130vh;
+	background-color: #1C1C1C;
+	margin-top: 15vh;
+}
+
+#recommendationsHeader {
+	color: white;
+	font-size: 2.5vw;
+	font-weight: 700;
+	margin-bottom: 7rem;
+}
+
+#recommendationCardsWrapper {
+	justify-content: space-evenly;
+	gap: 1vw;
+	margin-bottom: 5rem;
+}
+
+.recommendationCard {
+	width: 23vw;
+    background-color: #FCFAF3;
+    height: 70vh;
+    justify-content: start;
+    padding-top: 2vh;
+    border-radius: 2vh;
+}
+
+.recommendationCardPhoto {
+	width: 22vw;
+}
+
+.recommendationCardName {
+	font-weight: 900;
+	font-size: 1.4vw;
+	margin: 0;
+	padding-top: 2vh;
+}
+
+.recommendationCardDesc {
+	text-align: center;
+	margin: 0;
+	padding-top: 3vh;
+}
+
+#footer {
+	height: 55vh;
+}
+
+.footernavigation {
+	border: black solid 0.15rem;
+	width: 50vw;
+}
+
+#socialMediaWrapper {
+	gap: 3.5vw;
+	margin-bottom: 1vh;
+
+}
+
+.socialMediaIcon {
+	width: 4vw;
+}
+
+
+/* ниже css location*/
+
+.returnBtnWrapper {
+	margin-top: 3rem;
+	align-items: flex-start;
+	margin-right: 80%;
+}
+
+.returnBtn {
+	padding: 0px 1.5vw;
+    border-radius: 0.7rem;
+    border: 0.5px solid #323232;
+    gap: 0.5vw;
+    height: 4rem;
+} 
+
+  .returnArrow {
+	width: 2vw;
+	color: #5F5F5F;
+  }
+
+  .returnBtnText {
+	color: #4b4b4b;
+	font-size: 1vw;
+	font-weight: 300;
+	cursor: pointer;
+  }
+  
+  .locationNameWrapper {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    width: 90vw;
+	justify-content: space-between;
+	margin: 3rem 0;
+}
+
+.locationName {
+	font-size: 4vw;
+    font-weight: 800;
+    z-index: 2;
+    margin: 0;
+}
+
+.locationNameYellowUnderneath {
+	background-color: #FEC556;
+    height: 5vw;
+    z-index: 1;
+    width: 70vw;
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+	border-radius: 0.5vw;
+}
+
+  .locationDescWrapper {
+	width: 91%;
+	background-color: #3DA2D6;;
+  }
+
+  .locationDesc {
+	background-color: #FBFBFB;
+	width: 98%;
+    margin-left: 1%;
+    padding-left: 1%;
+  }
+
+  .photoSlideArrowsWrapper {
+	justify-content: space-between;
+    width: 108%;
+	margin-top: 5rem;
+  }
+
+  .photoSlideArrows {
+  	cursor: pointer;
+    }
+
+  .locationPhotosWrapper {
+	margin-top: 1.5rem;
+	justify-content: space-between;
+	width: 108%;
+
+  }
+.locationPhoto {
+	width: 27vw;
+	transition: transform 0.5s ease; /* Плавный переход при смене фотографий */
+}
+
+  /* Скрываем все фотографии, кроме трех */
+  .photo-hidden {
+      display: none; /* Убираем фотографии из потока */
+  }
+
+  .mapWrapper {
+	margin-top: 7rem;
+	padding: 5vh;
+	width: 86%;
+	height: 100vh;
+	background-color: #1C1C1C;
+	border-radius: 2rem;
+	align-items: normal;
+  }
+
+  .map {
+	height: 90vh;
+	background-color: #3DA2D6;
+  }
+
+
+  form {
+	text-align:center;
+}
+
+a {
+	font-size: 0.8vw;
+}
+
+label {
+	float: left;
+}
+
+button {
+	cursor: pointer;
+}
+
+
+#signContainer {
+	height: 100vh;
+	background-color: #fbfbfb;
+	font-family:  Unbounded, sans-serif;;
+}
+.signFormNameText {
+	z-index: 200;
+    font-size: 1.5vw;
+
+}
+
+.signWindow {
+	background-color: #fef8e7;
+    width: 25vw;
+	height: 70vh;
+	border-radius: 1vw;
+	border: 3.04px solid black;
+	
+}
+
+
+label {
+	position: sticky;
+	right: 10%;
+	font-size: 0.8vw;
+	right: 80%;
+	margin-top: 5vh;
+	margin-bottom: 1vh;;
+	margin-left: 1vw;
+}
+
+.has-acccount {
+	margin-top: 10%;
+}
+
+.has-acccount-text {
+	font-size: 0.8vw;
+}
+
+.sign-successful {
+	width: 15vw;
+	background-color: #DB402F; 
+	border-radius: 1vw;
+	height: 2vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+input {
+	font-family: Unbounded, sans-serif;
+
+        background-color: #D9D9D9;
+        border: 0.61px solid #000;
+		border-radius: 0.5rem;
+        color: gray;
+		height: 2.5rem;
+		font-size: 0.5vw;
+		width: 18vw;
+		padding-left: 1vw;
+		}
+	input::placeholder {
+		color: #908E8A;
+		font-size: 0.5vw;
+	}
+
+.eye-container {
+	position: absolute;
+    margin-left: 16%;
+	cursor: pointer;
+}
+
+.eye-img {
+	width: 1.8vw;
+	color: #3DA2D6;
+}
+
+.signUnderlinedA {
+	text-decoration: underline;;
+}
+
+.homeBtn {
+	height: 5vh;
+	margin-top: 8vh;
+	margin-bottom: 1.5rem;
+}
+
+.button-wrapper {
+	
+	border-radius: 8px;
+	border: none;
+	width: 17vw;
+	height: 4.5vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	cursor: pointer;
+	background-color: #FEC556;
+	font-size: 1vw;
+	font-family: Unbounded, sans-serif;
+	font-weight: 400;
+}
+
+.login-button {
+	margin-top: 5vh;
+}
+
+.cabinet-window {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	background-color: #3B372D;
+    width: 50vw;
+	height: 90vh;
+	border-radius: 1vw;
+	font-size: 1.2vw;
+}
+
+
+
+#photo-personal-info-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+}
+
+#photo {
+	width: 20vw;
+}
+
+#personal-info-container {
+	display: flex;
+    align-items: baseline;
+	justify-content: center;
+	gap: 1vh;
+}
+
+.personal-info-hint {
+	font-size: 0.8vw;
+	color: #C4B89F;
+}
+
+.personal-info-info {
+	padding-left: 1vw;
+}
+
+.personal-stats-rating-place-container {
+	gap: 5vw;
+}
+
+.personal-stats-balls-container {
+	gap: 5vw;
+}
+
+.personal-stats-img {
+	width: 3vw;
+}
+
+.stick-img {
+	width: 20vw;
+	height: 1rem;
+	margin-bottom: 2vh;
+}
+
+
+.personal-passed-quiz-list-element {
+	background-color: #DB402F;
+	margin: 1vw;
+	height: 2rem;
+	border-radius: 0.5vw;
+	width: 15vw;
+	cursor: pointer;
+}
+
+.personal-passed-quiz-list-element-text {
+	font-size: 1.2vw;
+}
+
+.arrow-holder {
+	cursor: pointer;
+}
+
+.arrow {
+	width: 2vw;
+	
+}
+
+#cabinet-to-home {
+	width: 15vw;
+	border: 4px solid #DB402F; 
+	border-radius: 1vw;
+	height: 2.5rem;
+	display: flex;
+	background-color: #4C418E;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	cursor: pointer;
+	margin-top: 1vh;
+	margin-bottom: 2vh;
+}
+
+#cabinet-to-home-link {
+	text-decoration: none;
+	font-size: 1.2vw;
+}
+
+#cabinet-to-home {
+	font-size: 1.2vw;
+}
+
+.true-submit-button {
+	position: absolute;
+	display: none;
+}
+
+.sign-successful-a {
+	text-decoration: none;
+}
+
+.homeBtnText {
+	font-size: 0.8vw;
+	color: #000;
+}
+
+/* css tagPage начинается ниже*/
+
+.tagPageReturnBtnWrapper {
+	margin-right: 0;
+}
+
+.tagPageName {
+	font-size: 3vw;
+	font-weight: 700;
+	margin: 9vh 5vh 3vh
+}
+
+#cardItemWrapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.tagPageDesc {
+	font-size: 1.7vw;
+	text-align: center;
+	font-weight: 300;
+}
+
+.tagPageDescStick {
+	width: 25vw;;
+}
+
+.cardItem {
+	width: 41vw;
+    height: 75vh;
+    margin: 4vw;
+    background-image: url(../elements/tagPage1/1.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.cardItemName {
+	margin-left: 2vw;
+    background-color: #FEF8E7;
+    height: 4vh;
+    padding: 0.5vw;
+	border-radius: 0.7vh;
+	font-weight: 600;
+	font-size: 1.5em;
+}
+
+.cardItemNameLikeWrapper {
+	justify-content: space-between;
+    align-items: center;
+    width: 38vw;
+    margin-top: 52vh;
+}
+
+.like {
+	width: 4vw;
+	margin-right: 2vw;
+	cursor: pointer;
+}
+
+/* css tagChoicePage начинается ниже*/
+
+.tagChoicePageName {
+	font-size: 3vw;
+	font-weight: 700;
+}
+
+.tagChoicePageNameStick {
+	color: #FEC556;
+	font-size: 2.6vw;
+	font-weight: 300;
+	background-color: transparent;
+}
+
+.tagContainer {
+    display: flex;
+    align-items: center;
+	justify-content: space-between;
+    background-color: #EDEDED;
+	width: 45vw;
+    padding: 1vw 2vw;
+    border-radius: 0.5vw;
+    cursor: pointer;
+    transition: background-color 0.3s;
+	margin: 1rem;
+}
+
+.tagContainerText {
+	font-size: 1.2vw;
+	font-weight: 400;
+    margin-right: 2vw;
+}
+
+.tagContainerArrow {
+    transition: transform 0.3s;
+}
+
+.tagContainer:hover .tagContainerArrow {
+    transform: rotate(90deg);
+}
+
+/* css tagSearchPage начинается ниже*/
+
+.tagSearchInput {
+	font-family: Unbounded, sans-serif;
+
+        background-color: transparent;
+        border: none;
+		border-radius: none;
+        color: black;
+		height: 2.5rem;
+		font-size: 1.5vw;
+		width: 18vw;
+		padding-left: 0;
+		outline: 0;
+		}
+		.tagSearchInput::placeholder {
+		color: #908E8A;
+		font-size: 1.5vw;
+	}
+
+.tagSearchWrapper {
+	gap: 2vw;
+}
+
+.tagSearchStick {
+	width: 75%;
+}
+
+#tagSearchContainer {
+	margin-top: 3rem;
+	margin-right: 25vw;
+    align-items: baseline;
+}
+
+#tagSearchCloud {
+	margin-top: 5rem;
+	width: 80vw;
+}
+
+.tagItem {
+	border-radius: 0.5vw;
+	padding: 0 1.7vw;
+	border: 0.15vw black solid;
+	display: inline-block;
+	margin: 0.8vw;
+}
+
+.tagItemName {
+	font-size: 1vw;;
+}
+
+.redTag {
+	border: 0.15vw #F2775B solid;
+	background-color: #FCE4DE;
+}
+
+.blueTag {
+	border: 0.15vw #6FBAE1 solid;
+	background-color: #E2F1F9;
+}
+
+.greenTag {
+	border: 0.15vw #45D764 solid;
+	background-color: #DAF7E0;
+}
+
+.yellowTag {
+	border: 0.15vw #FED481 solid;
+	background-color: #FFF6E6;
+}
+
+.leftbtn {
+	left: 11%;
+    position: absolute;
+}
+
+/* css cabinet начинается ниже*/
+
+#cabinetContainer {
+	background-color: #fef8e7;
+    width: 55vw;
+	height: 70vh;
+	border-radius: 1vw;
+	border: 3.04px solid black;
+	gap: 3rem;
+	margin-top: 6%;
+	justify-content: space-evenly;
+}
+
+.cabinetHomeBtn {
+	background-color: #FEC556;
+	border: none;
+	width: 15vw;
+	height: 3rem;
+
+}
+
+.cabinetPhotoInfoWrapper {
+	gap: 2vw;
+	align-items: flex-start;
+	margin-top: 2rem;
+}
+
+.cabinetPhoto {
+	width: 15vw;
+	height: 15vw;
+}
+
+.cabinetYourActionsWrapper {
+	border-radius: 1vw;
+	border: 0.61px solid black;
+	background-color: #D9D9D9;
+	height: 4rem;
+	width: 25vw;
+}
+
+.cabinetInfoWrapper {
+	height: 15vw;
+	justify-content: space-between;
+	align-items: flex-start;
+}
+
+.cabinetInfoLabel {
+	font-size: 0.8vw;
+	margin: 0;
+}
+
+.cabinetInfo {
+	font-size: 1.8vw;
+	margin: 0;
+	margin-left: 10%;;
+}
+
+.cabinetYourActionsText {
+	font-size: 1.2vw;
+
+}
+
+.cabinetFolder {
+	width: 1vw;
+	cursor: pointer;
+	margin-left: 8vw;
+}
+
+/* ниже css likedPage*/
+
+.likedPageName {
+	font-size: 2vw;
+	margin: 2rem;
+
+
+}
+
+#likedLocationsAndRoutes {
+	background-color: #EDEDED;
+	justify-content: space-evenly;
+	border-radius: 7vh;
+	height: 90vh;
+}
+
+#likedLocationsAndRoutesWrapper {
+	margin-bottom: 2rem;
+	justify-content: space-between;
+	gap: 8vw;
+}
+
+#likedPageContainer {
+	height: 100vh;
+	justify-content: space-between;
+}
+
+#likedLocationsAndRoutesHeader {
+	font-size: 3vw;
+	font-weight: 700;
+	margin: 0;
+	margin-top: 1rem;
+}
+
+/* ниже css likedItemsPage*/
+
+.likedItemsPageContainer {
+	height: 100vh;
+}
+
+.likedItemsPageBtn {
+	height: 2.5vw;
+    position: absolute;
+    right: 86%;
+}
+
+.likedCardItem {
+	margin: 3vw 4vw;
+}

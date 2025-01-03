@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spb4you</title>
+    <link rel="icon" href="elements/spb4you.ico" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/styles/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script th:src="@{/scripts/script.js}"></script>
+</head>
+<body class="flex-column">
+<div id="cabinetContainer" class="flex-column">
+
+    <div class="cabinetPhotoInfoWrapper flex-row">
+        <div class="cabinetPhotoWrapper flex-row">
+            <img class="cabinetPhoto" th:src="@{/elements/avatars/0.png}">
+        </div>
+
+        <div class="cabinetInfoWrapper flex-column">
+            <p class="cabinetInfoLabel">Имя:</p>
+            <p class="cabinetInfo" th:text="${user.firstName}">Имя</p>
+
+            <p class="cabinetInfoLabel">Фамилия:</p>
+            <p class="cabinetInfo" th:text="${user.lastName}">Фамилия</p>
+
+            <p class="cabinetInfoLabel" >Дата регистрации:
+                <span class="cabinetInfoLabel" th:text="${user.registrationDate}">28.10.2024</span>
+            </p>
+        </div>
+
+        <img class="cabinetFolder" th:src="@{/elements/cabinetFolder.svg}" alt="Папка")>
+
+    </div>
+
+    <a th:href="'/users/' + ${userId} + '/likes'">
+        <div class="cabinetYourActionsWrapper flex-column">
+            <p class="cabinetYourActionsText">Ваши действия</p>
+        </div>
+    </a>
+
+    <a th:href="@{/users/index/{userId}(userId=${user.id})}">
+        <div class="returnBtn cabinetHomeBtn flex-row">
+            <img class="sign returnArrow" th:src="@{/elements/returnArrow.svg}" alt="Return">
+            <p class="homeBtnText">На главную</p>
+        </div>
+    </a>
+
+</div>
+</body>
+</html>

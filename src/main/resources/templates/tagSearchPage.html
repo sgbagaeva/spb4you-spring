@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spb4you</title>
+    <link rel="icon" th:href="@{/elements/spb4you.ico}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/styles/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script th:src="@{/scripts/script.js}"></script>
+</head>
+
+<body>
+
+<div id="tagSearchPageContainer" class="flex-column">
+    <div id="tagSearchContainer" class="flex-column">
+        <div class="tagSearchWrapper flex-row">
+            <img class="searchIcon" th:src="@{/elements/searchIcon.svg}" alt="Search Icon">
+            <input type="text" class="tagSearchInput" placeholder="ПОИСК ПО ТЕГАМ">
+        </div>
+        <img class="tagSearchStick" th:src="@{/elements/searchByTagStick.svg}" alt="Search by Tag" src="">
+    </div>
+
+    <div id="tagSearchCloud">
+        <div th:each="tag : ${tags}"
+             th:class="'tagItem ' + ${tag.color} + 'Tag flex-row'">
+            <a th:href="@{/tags/{tagId}(tagId=${tag.id})}" style="text-decoration: none;">
+                <p class="tagItemName" th:text="${tag.name}">Название тега</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="returnBtn homeBtn flex-row" onclick="window.history.back();">
+        <img class="sign returnArrow" th:src="@{/elements/returnArrow.svg}"/>
+        <p class="homeBtnText">Назад</p>
+    </div>
+</div>
+
+</body>
+
+</html>

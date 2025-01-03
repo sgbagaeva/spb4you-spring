@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spb4you</title>
+    <link rel="icon" href="elements/spb4you.ico" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/styles/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script th:src="@{/scripts/script.js}"></script>
+</head>
+
+<body>
+<div id="likedPageContainer" class="flex-column">
+    <p class="likedPageName">Вам понравилось</p>
+
+    <section id="likedLocationsAndRoutes" class="flex-column">
+        <p id="likedLocationsAndRoutesHeader">ЛОКАЦИИ______________И____________МАРШРУТЫ</p>
+
+        <div id="likedLocationsAndRoutesWrapper" class="flex-row">
+            <a th:href="'/users/' + ${userId} + '/like-locations'">
+                <div class="locationsAndRoutesCard flex-column">
+                    <img class="locationsAndRoutesCardPhoto" th:src="@{/elements/locations.png}" alt="Локации">
+                    <p class="locationsAndRoutesCardText">Локации</p>
+                </div>
+            </a>
+
+            <img th:src="@{/elements/locationAndRoutesStick.svg}" id="locationsAndRoutesDivider" alt="">
+
+            <a th:href="'/users/' + ${userId} + '/like-routes'">
+                <div class="locationsAndRoutesCard flex-column">
+                    <img class="locationsAndRoutesCardPhoto" th:src="@{/elements/routes.png}" alt="Маршруты">
+                    <p class="locationsAndRoutesCardText">Маршруты</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <a th:href="'/users/cabinet/' + ${userId}">
+        <div class="returnBtnWrapper flex-row">
+            <div class="returnBtn flex-row">
+                <img class="sign returnArrow" th:src="@{/elements/returnArrow.svg}" alt="Назад">
+                <p class="returnBtnText">Назад</p>
+            </div>
+        </div>
+    </a>
+
+</div>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spb4you</title>
+    <link rel="icon" th:href="@{/elements/spb4you.ico}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/styles/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script th:src="@{/scripts/main.js}"></script>
+</head>
+<body>
+<div id="signContainer" class="flex-column">
+    <div class="signWindow flex-column" >
+        <p class="signFormNameText" > Авторизация</p>
+        <form id="auth-form" class="flex-column" th:action="@{/users/login}" method="post" th:object="${user}">
+            <label for="firstName" >Имя пользователя</label>
+            <input type="text" name="first-name" id="firstName" th:field="*{firstName}" required placeholder="Введите имя">
+            <label for="user-pwd" >Пароль</label>
+            <div class="passwordEyeContainer flex-row">
+
+                <input type="password" name="user-pwd" id="user-pwd" th:field="*{password}" required placeholder="Введите пароль">
+                <div class="flex-row eye-container">
+                    <img class="eye-img" th:src="@{/elements/closedEye.svg}" alt="Закрытый глаз">
+                </div>
+            </div>
+
+            <div class="flex-column has-acccount" >
+                <p class="has-acccount-text">Ещё нет аккаунта?  <a class="signUnderlinedA" th:href="@{/users/registry}" >Зарегестрироваться</a></p>
+            </div>
+
+            <button class="button-wrapper" type="submit" value="log-in">log in</button>
+        </form>
+        <div th:if="${errorMessage}" style="color:red; font-size: 0.7vw;">[[${errorMessage}]]</div> <!-- Сообщение об ошибке -->
+    </div>
+
+    <a th:href="@{/}">
+        <div class="returnBtn homeBtn flex-row">
+            <img class="sign returnArrow" th:src="@{/elements/returnArrow.svg}" alt="Кнопка возврата">
+            <p class="homeBtnText">На главную</p>
+        </div>
+    </a>
+</div>
+</body>
+</html>

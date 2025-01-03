@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺️</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
+  <link rel="stylesheet" th:href="@{/styles/map.css}" />
+  <style>
+    /* Настройка стиля для всплывающего окна */
+    .leaflet-popup {
+      width: 370px;  /* Ширина */
+      max-width: 400px;  /* Максимальная ширина */
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+<!--  <script type="module" th:src="@{/scripts/map.js}"></script>-->
+  <script th:inline="javascript">
+    const locationId = /*[[${locationId}]]*/ 1; // Выставляем из Thymeleaf
+    const locationCoordinates = /*[[${locationCoordinates}]]*/ [59.962417, 30.312833]; // Тоже из Thymeleaf, если нужно
+    const imageSrc = "/elements/loc" + locationId + "/forMap.png";
+  </script>
+  <script type="module">
+    import "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+    import "https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js";
+    import "https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.0.22/leaflet-maplibre-gl.js";
+
+    const middleOfSPB = [59.9343, 30.3351]; // Резервный центр
+
+    async function getLocation() {
+        try {
+            const response = await fetch("http://ip-api.com/json/");
+            const json = await response.json();
+            if (typeof json.lat === "number" && typeof json.lon === "number") {
+                return [json.lat, json.lon];
+            }
+        } catch (error) {}
+        return middleOfSPB; // возвращаем центр СПБ, если не удалось получить координаты
+    }
+
+    async function init() {
+        const map = L.map('map').setView(locationCoordinates, 18); // Устанавливаем вид на локацию и задаем масштаб
+
+        L.maplibreGL({
+            style: 'https://tiles.openfreemap.org/styles/liberty',
+            attribution: `<a href="https://openfreemap.org" target="_blank">OpenFreeMap</a> <a href="https://www.openmaptiles.org/" target="_blank">© OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>`,
+        }).addTo(map);
+
+        const houseMarker = L.marker(locationCoordinates).addTo(map)
+            .bindPopup(`
+                <img src="${imageSrc}" title="Фото с локации с ID: ${locationId}" style="max-width: 110%; height: auto;">
+            `) // Меняем на адрес, который получает id на основе Thymeleaf
+            .openPopup(); // автоматически открывает всплывающее окно при загрузке карты
+
+        // Эффект выделения при наведении
+        houseMarker.on('mouseover', function (e) {
+            this.openPopup(); // Открывает всплывающее окно при наведении
+            this.setOpacity(0.7); // Уменьшает непрозрачность метки
+        });
+
+        houseMarker.on('mouseout', function (e) {
+            this.closePopup(); // Закрывает всплывающее окно при уходе мыши
+            this.setOpacity(1); // Возвращает непрозрачность к норме
+        });
+    }
+
+    init();
+  </script>
+</body>
+</html>

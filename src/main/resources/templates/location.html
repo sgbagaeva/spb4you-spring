@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spb4you</title>
+    <link rel="icon" th:href="@{/elements/spb4you.ico}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/styles/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="container" class="flex-column">
+
+        <div class="returnBtnWrapper flex-row">
+            <div class="returnBtn flex-row" onclick="window.history.back();">
+                <img class="sign returnArrow" th:src="@{/elements/returnArrow.svg}"/>
+                <p class="returnBtnText">Назад</p>
+            </div>
+        </div>
+
+        <!-- Заголовок локации с использованием данных из модели -->
+        <div class="locationNameWrapper flex-row">
+            <p class="locationName" th:text="${location.name}">Название локации</p>
+            <div class="locationNameYellowUnderneath"></div>
+        </div>
+
+        <div class="locationDescWrapper flex-row">
+            <div class="locationDescBlueVertLine"></div>
+            <div class="locationDesc">
+                <!-- Описание локации также со значением из модели -->
+                <p th:text="${location.description}">Описание локации...</p>
+            </div>
+        </div>
+
+        <div class="locationPhotosViewerWrapper flex-column">
+            <div class="photoSlideArrowsWrapper flex-row">
+                <img class="photoSlideArrows" th:src="@{/elements/arrowLeft.svg}" onclick="showPrevious()"/>
+                <img class="photoSlideArrows" th:src="@{/elements/arrowRight.svg}" onclick="showNext()"/>
+            </div>
+            <div class="locationPhotosWrapper flex-row" id="photoSlider">
+                <img th:attr="src=@{'/elements/loc' + ${location.id} + '/1.png'},
+            title='Фото с локации с ID: ' + ${location.id},
+            alt='Фото с локации с ID: ' + ${location.id}" class="locationPhoto" />
+
+                <img th:attr="src=@{'/elements/loc' + ${location.id} + '/2.png'},
+            title='Фото с локации с ID: ' + ${location.id},
+            alt='Фото с локации с ID: ' + ${location.id}" class="locationPhoto" />
+
+                <img th:attr="src=@{'/elements/loc' + ${location.id} + '/3.png'},
+            title='Фото с локации с ID: ' + ${location.id},
+            alt='Фото с локации с ID: ' + ${location.id}" class="locationPhoto" />
+
+                <img th:attr="src=@{'/elements/loc' + ${location.id} + '/4.png'},
+            title='Фото с локации с ID: ' + ${location.id},
+            alt='Фото с локации с ID: ' + ${location.id}" class="locationPhoto" />
+
+                <img th:attr="src=@{'/elements/loc' + ${location.id} + '/5.png'},
+            title='Фото с локации с ID: ' + ${location.id},
+            alt='Фото с локации с ID: ' + ${location.id}" class="locationPhoto" />
+                <img th:attr="src=@{'/elements/loc' + ${location.id} + '/6.png'},
+            title='Фото с локации с ID: ' + ${location.id},
+            alt='Фото с локации с ID: ' + ${location.id}" class="locationPhoto" />
+
+                <img th:attr="src=@{'/elements/loc' + ${location.id} + '/7.png'},
+            title='Фото с локации с ID: ' + ${location.id},
+            alt='Фото с локации с ID: ' + ${location.id}" class="locationPhoto" />
+            </div>
+        </div>
+
+        <p></p>
+        <div th:if="${location.additInfo != null}">
+            <div class="locationAdditionalDesc flex-column">
+                <img class="locationAdditionalDescStick" th:src="@{/elements/locationStick.svg}">
+                <p class="workingHours" th:text="${location.additInfo}">Дополнительная информация о локации...</p>
+            </div>
+        </div>
+
+        <div class="mapWrapper flex-column">
+            <iframe th:src="@{/locations/map}" style="width: 100%; height: 90vh; border: none;"></iframe>
+        </div>
+
+    </div>
+
+    <script th:src="@{/scripts/slider.js}" defer></script>
+</body>
+</html>
+
+

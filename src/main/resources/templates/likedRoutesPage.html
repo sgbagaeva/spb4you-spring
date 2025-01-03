@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle}">Spb4you</title>
+    <link rel="icon" href="elements/spb4you.ico" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/styles/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script th:src="@{/scripts/script.js}"></script>
+</head>
+
+<body>
+<div id="likedItemsPageContainer" class="flex-column">
+
+    <div class="likedItemsPageBtnNameWrapper flex-row">
+        <div class="returnBtn flex-row" onclick="window.history.back();">
+            <img class="sign returnArrow" th:src="@{/elements/returnArrow.svg}"/>
+            <p class="returnBtnText">Назад</p>
+        </div>
+        <p class="likedPageName">Вам понравилось. Маршруты</p>
+    </div>
+
+    <div id="cardItemWrapper">
+        <!-- Предположим, что likedLocations - это список объектов локации -->
+        <div th:each="location : ${likedLocations}" class="cardItem likedCardItem flex-column">
+            <div class="cardItemNameLikeWrapper flex-row">
+                <p class="cardItemName flex-column" th:text="${location.name}">Город зодчего Росси</p>
+                <img class="like" th:src="@{${location.liked ? 'elements/liked.svg' : 'elements/notLiked.svg'}}"
+                     th:attr="liked=${location.liked}" alt="Like Status"/>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

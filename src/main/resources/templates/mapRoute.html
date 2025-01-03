@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺️</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Карта</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <link rel="stylesheet" th:href="@{/styles/map.css}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <style>
+    /* Настройка стиля для всплывающего окна */
+    .leaflet-popup {
+        max-width: none; /* Убираем ограничение ширины */
+        padding: 5px; /* Настраиваем отступы внутри */
+        font-family: Unbounded, sans-serif; /* Установка шрифта */
+    }
+  </style>
+</head>
+<body>
+<div id="map" style="height: 100vh;"></div>
+
+<script th:inline="javascript">
+  const routeId = /*[[${routeId}]]*/ 1; // Пример Thymeleaf
+  const pointsMap = /*[[${points}]]*/ {
+      'Локация 1': [59.962417, 30.312833],
+      'Локация 2': [59.9343, 30.3351],
+      'Игнорировать': [59.9311, 30.3175],
+      'no Локация 3': [59.9211, 30.2990],  // Например, точка для игнорирования
+  }; // Пример структуры Map
+</script>
+
+<script type="module">
+  import "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+  import "https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js";
+  import "https://unpkg.com/@maplibre/maplibre-gl-leaflet@0.0.22/leaflet-maplibre-gl.js";
+  import "https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js";
+
+  const middleOfSPB = [59.9343, 30.3351]; // Центр СПБ для резервных координат
+
+  async function init() {
+      const map = L.map('map').setView(middleOfSPB, 13); // Устанавливаем вид на центр СПБ
+
+      // Добавляем карту
+      L.maplibreGL({
+          style: 'https://tiles.openfreemap.org/styles/liberty',
+          attribution: `<a href="https://openfreemap.org" target="_blank">OpenFreeMap</a> <a href="https://www.openmaptiles.org/" target="_blank">© OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>`,
+      }).addTo(map);
+
+      // Массив для хранения координат
+      const latLngArray = [];
+      for (const [name, coords] of Object.entries(pointsMap)) {
+          // Включаем все точки в маршрут, даже если name содержит "no"
+          latLngArray.push(L.latLng(coords[0], coords[1])); // Добавляем координаты для маршрута
+
+          if (!name.includes("no")) { // Проверка, что name не содержит "no"
+              const marker = L.marker(coords).addTo(map)
+                  .bindPopup(name); // Используем имя точки
+
+              // Эффекты при наведении на маркер
+              marker.on('mouseover', function () {
+                  this.openPopup();
+                  this.setOpacity(0.7); // Уменьшаем непрозрачность при наведении
+              });
+              marker.on('mouseout', function () {
+                  this.closePopup();
+                  this.setOpacity(1); // Восстанавливаем непрозрачность
+              });
+          }
+      }
+
+      // Прокладывание маршрута через заданные точки
+      const polyline = L.polyline(latLngArray, {
+          color: '#9370d8', // Нежно-фиолетовый цвет
+          weight: 5,
+          dashArray: '10, 15' // Длина и промежуток для пунктирной линии
+      }).addTo(map);
+
+      // Устанавливаем вид карты, чтобы включить всю линию маршрута
+      map.fitBounds(polyline.getBounds());
+  }
+
+  // Инициализируем карту
+  init();
+</script>
+</body>
+</html>

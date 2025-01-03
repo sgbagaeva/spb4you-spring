@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Spb4you</title>
+	<link rel="icon" href="elements/spb4you.ico" type="image/x-icon">
+	<link rel="stylesheet" th:href="@{/styles/style.css}">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script th:src="@{/scripts/script.js}"></script>
+</head>
+<body>
+<div id="container" class="flex-column">
+	<section id="main" class="flex-column">
+		<div id="header" class="flex-row">
+			<img class="logoIcon icon" th:src="@{/elements/logo.svg}" alt="Логотип">
+
+			<!-- Блок для зарегистрированных пользователей -->
+			<ul class="navigation flex-row" th:if="${user != null}">
+				<li><a th:href="'/users/index/' + ${user.id} + '#welcome'">о приложении</a></li>
+				<li><a th:href="'/users/index/' + ${user.id} + '#locationsAndRoutes'">локации&маршруты</a></li>
+				<li><a th:href="'/users/index/' + ${user.id} + '#recommendations'">рекомендации</a></li>
+				<li><a th:href="'/users/index/' + ${user.id} + '#footer'">контакты</a></li>
+				<li><a th:href="@{/users/cabinet/{userId}(userId=${user.id})}">лк</a></li>
+			</ul>
+
+			<!-- Блок для незарегистрированных пользователей -->
+			<ul class="navigation flex-row" th:if="${user == null}">
+				<li><a th:href="@{/#welcome}">о приложении</a></li>
+				<li><a th:href="@{/#locationsAndRoutes}">локации&маршруты</a></li>
+				<li><a th:href="@{/#recommendations}">рекомендации</a></li>
+				<li><a th:href="@{/#footer}">контакты</a></li>
+				<li><a th:href="@{/users/registry}">войти</a></li>
+			</ul>
+
+			<a th:href="@{/tags}">
+				<img id="searchIcon" class="icon" th:src="@{/elements/searchIcon.svg}" alt="Поиск">
+			</a>
+		</div>
+		<div id="mainInfoWrapper" class="flex-row">
+
+			<div id="mainTextWrapper" class="flex-column">
+				<p id="mainHeadlineText">ПИТЕР ДЛЯ ТЕБЯ!</p>
+				<div id="mainDescAndBtnWrapper" class="flex-column">
+					<p id="mainDescText">Места и маршруты Санкт-Петербурга<br> в одном приложении </p>
+					<span th:if="${user != null}">
+						<a th:href="'/users/index/' + ${user.id} + '#locationsAndRoutes'">
+							<p id="toLocationsAndRoutesBtn">к локациям и маршрутам!</p>
+						</a>
+					</span>
+					<span th:if="${user == null}">
+						<a th:href="@{/#locationsAndRoutes}">
+							<p id="toLocationsAndRoutesBtn">к локациям и маршрутам!</p>
+						</a>
+					</span>
+				</div>
+			</div>
+
+			<img id="mainPhoto" th:src="@{/elements/mainPhoto.png}"></img>
+		</div>
+	</section>
+
+	<section id="welcome" class="flex-column">
+		<p id="welcomeHeadlineText">Добро пожаловать в наше веб-приложение <br><strong>spb4you!</strong></p>
+		<p class="welcomeText">Здесь вы откроете для себя новую сторону Петербурга. Вас не <br>оставит равнодушным возможность выбрать локацию или же <br>маршрут по вкусу из большого списка тематических мест.</p>
+
+		<p class="welcomeText">У нас вы точно найдете занятие по интересу и приятно <br>разнообразите свое пребывание в Санкт-Петербурге! </p>
+	</section>
+
+	<section id="advantages" class="flex-column">
+		<p id="advantagesHeader">ПРЕИМУЩЕСТВА_______________ПРИЛОЖЕНИЯ</p>
+		<div id="advantagesAndPhotosWrapper" class="flex-row">
+
+			<img class="advantagesPhotos" th:src="@{/elements/advantages1.png}" >
+
+			<div id="advantagesAndPhotosWrapper" class="flex-column">
+
+				<div class="allAdvantagesWrapper flex-column">
+					<div class="advantagesWrapper flex-column">
+						<div class="advantagesTextDotWrapper flex-row">
+							<p class="advantagesText">Разнообразие локаций и маршрутов</p>
+
+							<img class="dot" th:src="@{/elements/dot.svg}"> </img>
+						</div>
+
+						<img class="advantagesStick" th:src="@{/elements/advantagesStick.svg}" >
+					</div>
+
+
+
+					<div class="advantagesWrapper flex-column">
+
+						<div class="advantagesTextDotWrapper flex-row">
+							<p class="advantagesText">Экономия времени на поиск новых мест</p>
+
+							<img class="dot" th:src="@{/elements/dot.svg}"> </img>
+						</div>
+
+						<img class="advantagesStick" th:src="@{/elements/advantagesStick.svg}" >
+					</div>
+
+					<div class="advantagesWrapper flex-column">
+
+						<div class="advantagesTextDotWrapper flex-row">
+							<p class="advantagesText">Возможность встретить единомышленников</p>
+
+							<img class="dot" th:src="@{/elements/dot.svg}"> </img>
+						</div>
+
+						<img class="advantagesStick" th:src="@{/elements/advantagesStick.svg}" >
+					</div>
+
+					<div class="advantagesWrapper flex-column">
+
+						<div class="advantagesTextDotWrapper flex-row">
+							<p class="advantagesText">Расширение своих знаний о Петербурге</p>
+
+							<img class="dot" th:src="@{/elements/dot.svg}"> </img>
+						</div>
+
+						<img class="advantagesStick" th:src="@{/elements/advantagesStick.svg}" >
+					</div>
+
+					<div class="advantagesWrapper flex-column">
+
+						<div class="advantagesTextDotWrapper flex-row">
+							<p class="advantagesText">Простота использования</p>
+
+							<img class="dot" th:src="@{/elements/dot.svg}"> </img>
+						</div>
+
+						<img class="advantagesStick" th:src="@{/elements/advantagesStick.svg}" >
+					</div>
+				</div>
+
+
+
+			</div>
+		</div>
+	</section>
+
+	<section id="locationsAndRoutes" class="flex-column">
+		<p id="locationsAndRoutesHeader">ЛОКАЦИИ______________И____________МАРШРУТЫ</p>
+
+		<div id="locationsAndRoutesWrapper" class="flex-row">
+			<a th:href="@{/categories/locations}">
+				<div class="locationsAndRoutesCard flex-column">
+					<img class="locationsAndRoutesCardPhoto" th:src="@{/elements/locations.png}" >
+					<p class="locationsAndRoutesCardText">Локации</p>
+				</div>
+			</a>
+
+			<img id="locationsAndRoutesDivider" th:src="@{/elements/locationAndRoutesStick.svg}">
+
+			<a th:href="@{/categories/routes}">
+				<div class="locationsAndRoutesCard flex-column">
+					<img class="locationsAndRoutesCardPhoto" th:src="@{/elements/routes.png}" >
+					<p class="locationsAndRoutesCardText">Маршруты</p>
+				</div>
+			</a>
+		</div>
+
+	</section>
+
+	<section id="recommendations" class="flex-column">
+		<p id="recommendationsHeader">РЕКОМЕНДАЦИИ______________ОТ______________СОЗДАТЕЛЕЙ</p>
+
+		<div id="recommendationCardsWrapper" class="flex-row">
+
+			<a th:href="@{/locations/8}">
+				<div class="recommendationCard flex-column">
+					<img class="recommendationCardPhoto" th:src="@{/elements/recommendPhoto1.png}">
+
+					<p class="recommendationCardName"> Лофт проект Этажи</p>
+
+					<p class="recommendationCardDesc">Культурный центр в здании бывшего хлебозавода: галереи, магазины, кафе, терраса на крыше с видом на город.</p>
+				</div>
+			</a>
+
+			<a th:href="@{/locations/1}">
+				<div class="recommendationCard flex-column">
+					<img class="recommendationCardPhoto" th:src="@{/elements/recommendPhoto2.png}">
+
+					<p class="recommendationCardName">Сад “Сен-Жармен”</p>
+
+					<p class="recommendationCardDesc">Культовое андеграундное место, где в конце 1970-х годов собиралась творческая элита города, шумные обитатели легендарного кафе «Сайгон»</p>
+				</div>
+			</a>
+
+			<a th:href="@{/locations/5}">
+				<div class="recommendationCard flex-column">
+					<img class="recommendationCardPhoto" th:src="@{/elements/recommendPhoto3.png}">
+
+					<p class="recommendationCardName">Кафе “Тайяки”</p>
+
+					<p class="recommendationCardDesc">Тайяки — не только сеть кафе домашней японской кухни и десертов, но и удивительная история о людях, которых объединяет бесконечная любовь к Японии.</p>
+				</div>
+			</a>
+
+			<a th:href="@{/locations/7}">
+				<div class="recommendationCard flex-column">
+					<img class="recommendationCardPhoto" th:src="@{/elements/recommendPhoto4.png}">
+
+					<p class="recommendationCardName">Севкабель порт</p>
+
+					<p class="recommendationCardDesc">Это общественное пространство на берегу Финского залива, которое предлагает посетителям разнообразные мероприятия, кафе и уникальные виды на залив.</p>
+				</div>
+			</a>
+
+		</div>
+	</section>
+
+	<section id="footer" class="flex-column">
+		<!-- Блок для зарегистрированных пользователей -->
+		<ul class="navigation footernavigation flex-row" th:if="${user != null}">
+			<li><a th:href="'/users/index/' + ${user.id} + '#welcome'">о приложении</a></li>
+			<li><a th:href="'/users/index/' + ${user.id} + '#locationsAndRoutes'">локации&маршруты</a></li>
+			<li><a th:href="'/users/index/' + ${user.id} + '#recommendations'">рекомендации</a></li>
+			<li><a th:href="'/users/index/' + ${user.id} + '#footer'">контакты</a></li>
+			<li><a th:href="@{/users/cabinet/{userId}(userId=${user.id})}">лк</a></li>
+		</ul>
+
+		<!-- Блок для незарегистрированных пользователей -->
+		<ul class="navigation footernavigation flex-row" th:if="${user == null}">
+			<li><a th:href="@{/#welcome}">о приложении</a></li>
+			<li><a th:href="@{/#locationsAndRoutes}">локации&маршруты</a></li>
+			<li><a th:href="@{/#recommendations}">рекомендации</a></li>
+			<li><a th:href="@{/#footer}">контакты</a></li>
+			<li><a th:href="@{/users/registry}">войти</a></li>
+		</ul>
+		<div id="socialMediaWrapper">
+			<img class="socialMediaIcon icon" th:src="@{/elements/telegramIcon.svg}" alt="Telegram">
+			<img class="socialMediaIcon icon" th:src="@{/elements/VKIcon.svg}" alt="VK">
+			<img class="socialMediaIcon icon" th:src="@{/elements/mailIcon.svg}" alt="Email">
+		</div>
+		<a th:href="@{/}">
+			<img class="logoIcon icon" th:src="@{/elements/logo.svg}" alt="Логотип">
+		</a>
+	</section>
+</div>
+</body>
+</html>
+
+

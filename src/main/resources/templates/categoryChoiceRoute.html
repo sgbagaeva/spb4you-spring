@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spb4you</title>
+
+    <link rel="icon" th:href="@{/elements/spb4you.ico}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/styles/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script th:src="@{/scripts/script.js}" defer></script>
+</head>
+
+<body>
+    <div id="tagChoicePageContainer" class="flex-column">
+        <p class="tagChoicePageName">
+            <strong class="tagChoicePageNameStick">_________________</strong>Маршруты
+            <strong class="tagChoicePageNameStick">_________________</strong>
+        </p>
+        <p class="tagPageChoiceDesc">Выберите желаемую категорию маршрута, который вам хотелось бы пройти</p>
+
+        <div id="tagsWrapper">
+            <span th:each="category : ${categories}">
+                <a th:href="@{/categories/routes/{categoryId}(categoryId=${category.id})}">
+                    <div class="tagContainer">
+                        <span class="tagContainerText" th:text="${category.name}">Название категории</span>
+                        <img class="tagContainerArrow" th:src="@{/elements/tagContainerArrow.svg}">
+                    </div>
+                </a>
+            </span>
+        </div>
+
+        <div class="returnBtn homeBtn flex-row" onclick="window.history.back();">
+            <img class="sign returnArrow" th:src="@{/elements/returnArrow.svg}"/>
+            <p class="homeBtnText">Назад</p>
+        </div>
+    </div>
+</body>
+
+</html>
