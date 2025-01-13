@@ -175,7 +175,7 @@ public class UsersController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
         }
 
-        // Получаем списокLikedLocations
+        // Получаем список LikedLocations
         List<Integer> likedLocations = user.getLikedLocationsList();
         if (likedLocations == null) {
             likedLocations = new ArrayList<>(); // Возможно, список не был инициализирован
@@ -218,7 +218,7 @@ public class UsersController {
         }
 
         // Получаем список идентификаторов локаций, которые пользователь добавил в избранное
-        List<Integer> likedLocationIds = user.getLikedLocationsList(); // Предполагаем, что это возвращает List<Integer>
+        List<Integer> likedLocationIds = user.getLikedLocationsList();
 
         // Фильтруем локации, чтобы оставить только те, которые есть в избранном у пользователя
         List<Location> likedLocations = locationService.findAll()
@@ -238,17 +238,6 @@ public class UsersController {
             // Обработка случая, если пользователь не найден
             return "redirect:/error"; // Возвращаем ошибку
         }
-
-        // Получаем список идентификаторов локаций, которые пользователь добавил в избранное
-        List<Integer> likedLocationIds = user.getLikedLocationsList(); // Предполагаем, что это возвращает List<Integer>
-
-        // Фильтруем локации, чтобы оставить только те, которые есть в избранном у пользователя
-        List<Location> likedLocations = locationService.findAll()
-                .stream()
-                .filter(location -> likedLocationIds.contains(location.getId())) // Проверяем наличие id в списке
-                .toList();
-
-        model.addAttribute("likedLocations", likedLocations);
         return "likedPage"; // Страница с избранными локациями и маршрутами
     }
 }

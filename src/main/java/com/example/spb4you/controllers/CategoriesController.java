@@ -1,11 +1,11 @@
 package com.example.spb4you.controllers;
 
-import com.example.spb4you.models.Category;
-import com.example.spb4you.models.Location;
-import com.example.spb4you.models.Route;
+import com.example.spb4you.models.*;
 import com.example.spb4you.services.CategoryService;
 import com.example.spb4you.services.LocationService;
 import com.example.spb4you.services.RouteService;
+import com.example.spb4you.services.UserService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -28,6 +29,9 @@ public class CategoriesController {
 
     @Autowired
     private RouteService routeService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/info/list")
     public ResponseEntity<List<Category>> listCategories() {
@@ -53,18 +57,41 @@ public class CategoriesController {
     }
 
     @GetMapping("/locations/{categoryId}")
-    public String showLocationsCategory(@PathVariable("categoryId") Integer categoryId, Model model) {
+    public String showLocationsCategory(@PathVariable("categoryId") Integer categoryId, Model model, HttpSession session) {
+        Integer userId = (Integer) session.getAttribute("userId");
         Category category = categoryService.findById(categoryId).orElse(null);
+
         if (category != null) {
             model.addAttribute("category", category);
 
+            // Получаем пользователя по userId из сессии
+            User user = userService.findById(userId).orElse(null);
+            List<Integer> likedLocationsList = user != null ? user.getLikedLocationsList() : new ArrayList<>();
+
+            // Инициализируем списки дляLiked и Unliked локаций
+            List<Location> likedLocations = new ArrayList<>();
+            List<Location> unlikedLocations = new ArrayList<>();
+
+            // Фильтруем локации по categoryId
             List<Location> locations = locationService.findAll()
                     .stream()
                     .filter(location -> location.getCategoryIdList().stream()
                             .anyMatch(id -> id.equals(categoryId))) // Проверка наличия categoryId в списке
                     .toList();
 
-            model.addAttribute("locations", locations);
+            // Разделяем локации на понравившиеся и непонравившиеся
+            for (Location location : locations) {
+                if (likedLocationsList.contains(location.getId())) {
+                    likedLocations.add(location); // Добавляем в понравившиеся
+                } else {
+                    unlikedLocations.add(location); // Добавляем в непонравившиеся
+                }
+            }
+
+            // Добавляем оба списка в модель
+            model.addAttribute("likedLocations", likedLocations);
+            model.addAttribute("unlikedLocations", unlikedLocations);
+            model.addAttribute("userId", userId);
             return "categorypageLoc";
         }
         return "error";

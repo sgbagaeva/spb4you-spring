@@ -35,7 +35,20 @@
     <img class="tagPageDescStick" th:src="@{/elements/tagPageDescStick.svg}">
 
     <div id="cardItemWrapper">
-        <div th:each="location : ${locations}">
+        <div th:each="location : ${likedLocations}">
+            <a th:href="@{/locations/{locationId}(locationId=${location.id})}">
+                <div class="cardItem flex-column"
+                     th:style="'background-image: url(/elements/loc' + ${location.id} + '/catAndTag.png);'">
+                    <div class="cardItemNameLikeWrapper flex-row">
+                        <p class="cardItemName flex-column" th:text="${location.name}">Название локации</p>
+                        <img class="like"
+                             th:src="@{/elements/liked.svg}"
+                             th:onclick="'toggleLike(this, ' + ${location.id} + ', ' + ${userId} + '); return false;'"/>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div th:each="location : ${unlikedLocations}">
             <a th:href="@{/locations/{locationId}(locationId=${location.id})}">
                 <div class="cardItem flex-column"
                      th:style="'background-image: url(/elements/loc' + ${location.id} + '/catAndTag.png);'">
@@ -43,7 +56,7 @@
                         <p class="cardItemName flex-column" th:text="${location.name}">Название локации</p>
                         <img class="like"
                              th:src="@{/elements/notLiked.svg}"
-                             th:onclick="'toggleLike(this, ' + ${location.id} + '); return false;'"> <!-- Добавляем return false для предотвращения перехода -->
+                             th:onclick="'toggleLike(this, ' + ${location.id} + ', ' + ${userId} + '); return false;'"/>
                     </div>
                 </div>
             </a>
