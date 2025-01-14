@@ -1,0 +1,82 @@
+/* Общие настройки страницы */
+body {
+    margin: 0; /* Убираем отступы по умолчанию */
+    font-family: 'Unbounded', sans-serif; /* Шрифт на всей странице */
+    background-color: #FFFFFF; /* Цвет фона всей страницы, теперь белый */
+    display: flex; /* Используем flexbox для размещения элементов */
+}
+
+/* Верхний заголовок */
+.header {
+    box-sizing: border-box;
+    position: absolute; /* Фиксированное положение для заголовка */
+    width: 100%; /* Ширина на всю страницу */
+    height: 237px; /* Высота заголовка */
+    top: 0; /* Вместе с верхним краем */
+    background: #EDEDED; /* Цвет фона заголовка */
+    border-width: 0 1px 1px 0; /* Границы снизу и справа */
+    border-style: solid; /* Сплошные линии */
+    border-color: #000000; /* Цвет границ */
+    border-radius: 0 0 30px 0; /* Закругление углов снизу */
+    display: flex; /* Флекс-контейнер для заголовка */
+    align-items: center; /* Центрирование по вертикали */
+    justify-content: space-between; /* Расстановка элементов по краям */
+    padding: 0 50px; /* Отступы справа и слева */
+}
+
+/* Круглый аватар */
+.avatar {
+    width: 184px; /* Ширина аватара */
+    height: 184px; /* Высота аватара */
+    border-radius: 50%; /* Круглая форма */
+    background-color: #FEF8E7;
+    background-size: cover; /* Покрывает весь элемент */
+    background-position: center; /* Центрируем изображение */
+    margin-right: 2px; /* Отступ справа от аватара */
+    border: 2px solid #000000; /* Черная обводка */
+}
+
+/* Заголовок в верхней части */
+.header-title {
+    font-size: 24px; /* Размер шрифта */
+    color: #000000; /* Цвет текста */
+}
+
+/* Кнопка редактирования */
+.edit-btn, .notifications {
+    font-size: 24px; /* Размер шрифта */
+    color: #000000; /* Цвет текста */
+}
+
+/* Боковая панель */
+.sidebar {
+    box-sizing: border-box; /* Для корректных измерений с padding */
+    position: relative !important; /* Позволяет боковой панели изменять размер в зависимости от содержимого */
+    width: 484px; /* Ширина боковой панели */
+    margin-top: 237px; /* Отступ сверху на высоту заголовка */
+    left: 0; /* Отступ от левой стороны */
+    background: #EDEDED; /* Цвет фона */
+    border-width: 0 1px 1px 0; /* Границы */
+    border-style: solid; /* Сплошные границы */
+    border-color: #000000; /* Цвет границ */
+    border-radius: 0 30px 30px 0; /* Закругление углов справа */
+    padding: 20px; /* Внутренние отступы */
+}
+
+.sidebar-item {
+    text-decoration: none;
+    font-size: 24px; /* Размер шрифта */
+    color: #000000; /* Цвет текста */
+    display: block;   /* Делаем элемент блочным для лучшей обработки */
+    padding: 50px 50px 0 0;
+}
+/* Горизонтальная линия разделения */
+.sidebar-divider {
+    border: none; /* Убирает стандартные границы */
+    border-top: 1px solid #000000; /* Добавляем черную линию сверху */
+    margin: 30px 100px 30px 0px; /* Отступы */
+}
+
+.sidebar-item.active {
+    color: #3DA2D6; /* Цвет текста активного элемента */
+}

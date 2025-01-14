@@ -28,16 +28,27 @@ public class UsersController {
 
     @GetMapping("/info/list")
     public ResponseEntity<List<User>> listUsers() {
-        List<User> users = userService.findAll();
+        List<User> users = userService.findAll()
+                .stream()
+                .filter(user -> "Пользователь".equals(user.getRole()))
+                .toList();
         return ResponseEntity.ok(users); // Возвращаем список всех пользователей со всеми полями для каждого с кодом 200
     }
 
     @GetMapping("/info/{userId}")
     public ResponseEntity<User> getUserDetails(@PathVariable("userId") Integer userId) {
+        // Находим пользователя по ID
         User user = userService.findById(userId).orElse(null);
-        assert user != null;
-        return ResponseEntity.ok(user); // Возвращаем набор полей пользователя по соответствующему ID с кодом 200
+
+        // Проверяем, что пользователь найден и имеет роль "user"
+        if (user != null && "Пользователь".equals(user.getRole())) {
+            return ResponseEntity.ok(user); // Возвращаем набор полей пользователя с кодом 200
+        }
+
+        // Если пользователь не найден или не имеет правильную роль, возвращаем статус 404
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Возвращаем 404 Not Found
     }
+
 
     @GetMapping("/registry")
     public String showRegistrationForm(Model model) {
@@ -59,6 +70,7 @@ public class UsersController {
         user.setRegistrationDate(LocalDateTime.now());
         user.setLikedLocations(", ");
         user.setLikedRoutes(", ");
+        user.setRole("Пользователь");
         userService.save(user);
 
         model.addAttribute("firstName", user.getFirstName()); // Сохраняем имя пользователя в модели
@@ -85,8 +97,14 @@ public class UsersController {
         // Сохраняем id пользователя в сессии
         session.setAttribute("userId", existingUser.getId());
 
-        // Перенаправление на личную страницу пользователя
-        return "redirect:/users/index/" + existingUser.getId(); // Используем ID для формирования URL
+        // Перенаправление на главную страницу
+        if ("Пользователь".equals(existingUser.getRole())) {
+            return "redirect:/users/index/" + existingUser.getId(); // Используем ID для формирования URL
+        } else if ("Администратор".equals(existingUser.getRole())) {
+            return "redirect:/admins/index/" + existingUser.getId();
+        } else {
+            return "redirect:/error"; // Возвращаем ошибку
+        }
     }
 
     /*
@@ -232,7 +250,7 @@ public class UsersController {
     }
 
     @GetMapping("/{userId}/likes")
-    public String userShowLikedPage(@PathVariable("userId") Integer userId, Model model) {
+    public String userShowLikedPage(@PathVariable("userId") Integer userId) {
         User user = userService.findById(userId).orElse(null);
         if (user == null) {
             // Обработка случая, если пользователь не найден

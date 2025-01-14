@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/styles/style-user.css}"> <!-- Thymeleaf для подключения CSS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script th:src="@{/scripts/admin.js}"></script> <!-- Используем Thymeleaf для подключения JS -->
+    <title>Главная страница администратора</title>
+</head>
+
+<body>
+<!-- Верхний заголовок -->
+<div class="header">
+    <div class="avatar"></div> <!-- Круглый аватар -->
+    <!-- ИМЯ -->
+    <div class="header-title">
+        <span th:text="${user.firstName}">Имя админа</span>
+        <br><br> <span th:text="${user.lastName}">Фамилия админа</span>
+    </div>
+    <div class="header-title">
+        <span th:text="${user.role}">Роль</span>
+        <br><br> <span th:text="${user.email}">Почта админа</span>
+    </div>
+    <div class="header-title">Редактировать</div>
+    <div class="edit-btn">На главную</div>
+</div>
+
+<!-- Основная область работы -->
+<div class="sidebar">
+    <p></p>
+    <a th:href="@{/admins/manage-locs-routes}" class="sidebar-item">Управление <br>локациями/маршрутами</a>
+    <hr class="sidebar-divider">
+    <a th:href="@{/admins/categories}" class="sidebar-item">Управление категориями</a>
+    <hr class="sidebar-divider">
+    <a th:href="@{/admins/manage-users}" class="sidebar-item">Управление пользователями</a>
+    <hr class="sidebar-divider">
+    <a th:href="@{/admins/analytics}" class="sidebar-item">Аналитика</a>
+    <hr class="sidebar-divider">
+    <a th:href="@{/admins/news}" class="sidebar-item">Новости и объявления</a>
+    <hr class="sidebar-divider">
+</div>
+
+<!-- Основной контент -->
+<div class="main-content" id="main-content">
+    <!-- Здесь будет загружено содержимое других страниц -->
+</div>
+</body>
+</html>
+
+
