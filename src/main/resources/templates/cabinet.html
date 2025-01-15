@@ -27,8 +27,11 @@
             <p class="cabinetInfoLabel">Фамилия:</p>
             <p class="cabinetInfo" th:text="${user.lastName}">Фамилия</p>
 
+            <p class="cabinetInfoLabel">Никнейм:</p>
+            <p class="cabinetInfo" th:text="${user.lastName}">Фамилия</p>
+
             <p class="cabinetInfoLabel" >Дата регистрации:
-                <span class="cabinetInfoLabel" th:text="${user.registrationDate}">28.10.2024</span>
+                <span class="cabinetInfoLabel" th:text="${formattedDate} + 'г'">28.10.2024</span>
             </p>
         </div>
 

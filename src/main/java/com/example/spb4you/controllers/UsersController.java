@@ -1,7 +1,9 @@
 package com.example.spb4you.controllers;
 
 import com.example.spb4you.models.Location;
+import com.example.spb4you.models.Route;
 import com.example.spb4you.services.LocationService;
+import com.example.spb4you.services.RouteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.example.spb4you.models.User;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +28,9 @@ public class UsersController {
 
     @Autowired
     private LocationService locationService;
+
+    @Autowired
+    private RouteService routeService;
 
     @GetMapping("/info/list")
     public ResponseEntity<List<User>> listUsers() {
@@ -132,8 +138,25 @@ public class UsersController {
             // Обработка случая, если пользователь не найден
             return "redirect:/error"; // Возвращаем ошибку
         }
+
+        // Форматируем дату в нужный формат
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        String formattedDate = user.getRegistrationDate().format(formatter);
+
+        // Добавляем отформатированную дату в модель
+        model.addAttribute("formattedDate", formattedDate);
         model.addAttribute("user", user);
         return "cabinet"; // Личный кабинет зарегистрированного пользователя
+    }
+
+    @GetMapping("/{userId}/likes")
+    public String userShowLikedPage(@PathVariable("userId") Integer userId) {
+        User user = userService.findById(userId).orElse(null);
+        if (user == null) {
+            // Обработка случая, если пользователь не найден
+            return "redirect:/error"; // Возвращаем ошибку
+        }
+        return "likedPage"; // Страница с избранными локациями и маршрутами
     }
 
     @PostMapping("/{userId}/like-locations/{locationId}")
@@ -249,14 +272,117 @@ public class UsersController {
         return "likedLocationsPage"; // Страница с избранными локациями
     }
 
-    @GetMapping("/{userId}/likes")
-    public String userShowLikedPage(@PathVariable("userId") Integer userId) {
+    @PostMapping("/{userId}/like-routes/{routeId}")
+    public ResponseEntity<?> likeRoute(@PathVariable Integer userId, @PathVariable Integer routeId) {
+        try {
+            System.out.println("Attempting to like route ID: " + routeId + " for user ID: " + userId);
+
+            // Получение пользователя
+            User user = userService.findById(userId).orElse(null);
+            if (user == null) {
+                System.out.println("User not found!");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+            }
+
+            // ПолучениеLikedRoutes
+            List<Integer> likedRoutes = user.getLikedRoutesList();
+            if (likedRoutes == null) {
+                likedRoutes = new ArrayList<>(); // Инициализация списка
+            }
+
+            System.out.println("Current liked routes: " + likedRoutes);
+
+            // Проверка наличия лайка
+            if (!likedRoutes.contains(routeId)) {
+                likedRoutes.add(routeId);
+                user.setLikedRoutesList(likedRoutes);
+                userService.save(user); // Сохраняем пользователя
+
+                // Попытка получить локацию
+                Route route = routeService.findById(routeId).orElse(null);
+                if (route != null) {
+                    route.setLikes(route.getLikes() + 1);
+                    routeService.save(route);
+                    System.out.println("Route liked successfully.");
+                    return ResponseEntity.ok("Route liked.");
+                } else {
+                    System.out.println("Route not found!");
+                    return ResponseEntity.badRequest().body("Route not found.");
+                }
+            } else {
+                System.out.println("Route already liked.");
+                return ResponseEntity.badRequest().body("Route already liked.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Печать информации об ошибке
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error.");
+        }
+    }
+
+    @PostMapping("/{userId}/unlike-routes/{routeId}")
+    public ResponseEntity<?> unlikeRoute(@PathVariable Integer userId, @PathVariable Integer routeId) {
+        System.out.println("Attempting to unlike route ID: " + routeId + " for user ID: " + userId);
+
+        User user = userService.findById(userId).orElse(null);
+        if (user == null) {
+            System.out.println("User not found!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
+
+        // Получаем список LikedLRoutes
+        List<Integer> likedRoutes = user.getLikedRoutesList();
+        if (likedRoutes == null) {
+            likedRoutes = new ArrayList<>(); // Возможно, список не был инициализирован
+        }
+
+        System.out.println("Current liked routes: " + likedRoutes);
+
+        // Логика удаления лайка с маршрута
+        if (likedRoutes.contains(routeId)) {
+            likedRoutes.remove(routeId);
+            user.setLikedRoutesList(likedRoutes);
+            if (user.getLikedRoutes() == null || user.getLikedRoutes().trim().isEmpty()) {
+                user.setLikedRoutes(", ");
+            }
+            userService.save(user); // Сохраняем изменения пользователя
+
+            // Уменьшаем параметр likes маршрута
+            Route route = routeService.findById(routeId).orElse(null);
+            if (route != null) {
+                route.setLikes(route.getLikes() - 1);
+                routeService.save(route); // Сохраняем изменения маршрута
+                System.out.println("Route unliked successfully.");
+                return ResponseEntity.ok("Route unliked.");
+            } else {
+                System.out.println("Route not found!");
+                return ResponseEntity.badRequest().body("Route not found.");
+            }
+        }
+
+        System.out.println("Route was not liked by the user.");
+        return ResponseEntity.badRequest().body("Route not liked yet.");
+    }
+
+    @GetMapping("/{userId}/like-routes")
+    public String userShowRoutesLikedPage(@PathVariable("userId") Integer userId, Model model) {
         User user = userService.findById(userId).orElse(null);
         if (user == null) {
             // Обработка случая, если пользователь не найден
             return "redirect:/error"; // Возвращаем ошибку
         }
-        return "likedPage"; // Страница с избранными локациями и маршрутами
+
+        // Получаем список идентификаторов маршрутов, которые пользователь добавил в избранное
+        List<Integer> likedRoutesIds = user.getLikedRoutesList();
+
+        // Фильтруем маршруты, чтобы оставить только те, которые есть в избранном у пользователя
+        List<Route> likedRoutes = routeService.findAll()
+                .stream()
+                .filter(route -> likedRoutesIds.contains(route.getId())) // Проверяем наличие id в списке
+                .toList();
+
+        model.addAttribute("likedRoutes", likedRoutes);
+        model.addAttribute("userId", userId);
+        return "likedRoutesPage"; // Страница с избранными маршрутами
     }
 }
 

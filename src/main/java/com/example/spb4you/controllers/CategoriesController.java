@@ -92,7 +92,7 @@ public class CategoriesController {
             model.addAttribute("likedLocations", likedLocations);
             model.addAttribute("unlikedLocations", unlikedLocations);
             model.addAttribute("userId", userId);
-            return "categorypageLoc";
+            return "categorypageLocs";
         }
         return "error";
     }
@@ -108,20 +108,44 @@ public class CategoriesController {
     }
 
     @GetMapping("/routes/{categoryId}")
-    public String showRoutesCategory(@PathVariable("categoryId") Integer categoryId, Model model) {
+    public String showRoutesCategory(@PathVariable("categoryId") Integer categoryId, Model model, HttpSession session) {
+        Integer userId = (Integer) session.getAttribute("userId");
         Category category = categoryService.findById(categoryId).orElse(null);
+
         if (category != null) {
             model.addAttribute("category", category);
 
+            // Получаем пользователя по userId из сессии
+            User user = userService.findById(userId).orElse(null);
+            List<Integer> likedRoutesList = user != null ? user.getLikedRoutesList() : new ArrayList<>();
+
+            // Инициализируем списки для понравившихся и непонравившихся маршрутов
+            List<Route> likedRoutes = new ArrayList<>();
+            List<Route> unlikedRoutes = new ArrayList<>();
+
+            // Фильтруем маршруты по categoryId
             List<Route> routes = routeService.findAll()
                     .stream()
                     .filter(route -> route.getCategoryIdList().stream()
                             .anyMatch(id -> id.equals(categoryId))) // Проверка наличия categoryId в списке
                     .toList();
 
-            model.addAttribute("routes", routes);
-            return "categorypageRoutes";
+            // Разделяем маршруты на понравившиеся и непонравившиеся
+            for (Route route : routes) {
+                if (likedRoutesList.contains(route.getId())) {
+                    likedRoutes.add(route); // Добавляем в понравившиеся
+                } else {
+                    unlikedRoutes.add(route); // Добавляем в непонравившиеся
+                }
+            }
+
+            // Добавляем оба списка в модель
+            model.addAttribute("likedRoutes", likedRoutes);
+            model.addAttribute("unlikedRoutes", unlikedRoutes);
+            model.addAttribute("userId", userId);
+            return "categorypageRoutes"; // Указываем имя шаблона для отображения
         }
-        return "error";
+        return "error"; // Возврат ошибки, если категория не найдена
     }
+
 }

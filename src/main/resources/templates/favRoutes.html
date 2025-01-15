@@ -4,37 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${pageTitle}">Spb4you</title>
-    <link rel="icon" href="elements/spb4you.ico" type="image/x-icon">
+    <title>Spb4you</title>
+    <link rel="icon" th:href="@{/elements/spb4you.ico}" type="image/x-icon">
     <link rel="stylesheet" th:href="@{/styles/style.css}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script th:src="@{/scripts/script.js}"></script>
 </head>
 
 <body>
-<div id="likedItemsPageContainer" class="flex-column">
+<div id="tagpageContainer" class="flex-column">
 
-    <div class="likedItemsPageBtnNameWrapper flex-row">
+    <div class="returnBtnWrapper tagPageReturnBtnWrapper flex-row">
         <div class="returnBtn flex-row" onclick="window.history.back();">
-            <img class="sign returnArrow" th:src="@{/elements/returnArrow.svg}"/>
+            <img class="sign returnArrow" th:src="@{/elements/returnArrow.svg}">
             <p class="returnBtnText">Назад</p>
         </div>
-        <p class="likedPageName">Вам понравилось. Маршруты</p>
     </div>
 
+    <p class="tagPageName">Вам понравилось. Маршруты</p>
+
     <div id="cardItemWrapper">
-        <div th:each="route : ${likedRoutes}">
+        <div th:each="route : ${routes}">
             <a th:href="@{/routes/{routeId}(routeId=${route.id})}">
                 <div class="cardItem flex-column"
-                     th:style="'background-image: url(/elements/route' + ${route.id} + '/catAndTag.png);'">
+                     th:style="'background-image: url(/elements/loc' + ${route.id} + '/catAndTag.png);'">
                     <div class="cardItemNameLikeWrapper flex-row">
                         <p class="cardItemName flex-column" th:text="${route.name}">Название маршрута</p>
-                        <img class="like"
-                             th:src="@{/elements/liked.svg}"
-                             th:onclick="'toggleLikeRoute(this, ' + ${route.id} + ', ' + ${userId} + '); return false;'"/>
+                        <img class="like" th:src="@{/elements/notLiked.svg}">
                     </div>
                 </div>
             </a>

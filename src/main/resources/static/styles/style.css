@@ -40,7 +40,9 @@ section {
 }
 
 a {
+    cursor: pointer;
 	text-decoration: none;
+	font-size: 0.8vw;
 	color: #000;
 }
 
@@ -291,6 +293,7 @@ ul li {
 }
 
 .returnBtn {
+    cursor: pointer;
 	padding: 0px 1.5vw;
     border-radius: 0.7rem;
     border: 0.5px solid #323232;
@@ -393,10 +396,6 @@ ul li {
 
   form {
 	text-align:center;
-}
-
-a {
-	font-size: 0.8vw;
 }
 
 label {

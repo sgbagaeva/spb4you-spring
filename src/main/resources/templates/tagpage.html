@@ -27,32 +27,65 @@
        th:text="${tag.name.toUpperCase()}">НАЗВАНИЕ ТЕГА</p>
 
     <div id="cardItemWrapper">
-        <div th:each="location : ${likedLocations}">
-            <a th:href="@{/locations/{locationId}(locationId=${location.id})}">
-                <div class="cardItem flex-column"
-                     th:style="'background-image: url(/elements/loc' + ${location.id} + '/catAndTag.png);'">
-                    <div class="cardItemNameLikeWrapper flex-row">
-                        <p class="cardItemName flex-column" th:text="${location.name}">Название локации</p>
-                        <img class="like"
-                             th:src="@{/elements/liked.svg}"
-                             th:onclick="'toggleLike(this, ' + ${location.id} + ', ' + ${userId} + '); return false;'"/>
+            <!-- Понравившиеся маршруты -->
+            <div th:each="route : ${likedRoutes}">
+                <a th:href="@{/routes/{routeId}(routeId=${route.id})}">
+                    <div class="cardItem flex-column"
+                         th:style="'background-image: url(/elements/route' + ${route.id} + '/catAndTag.png);'">
+                        <div class="cardItemNameLikeWrapper flex-row">
+                            <p class="cardItemName flex-column" th:text="${route.name}">Название маршрута</p>
+                            <img class="like"
+                                 th:src="@{/elements/liked.svg}"
+                                 th:onclick="'toggleLikeRoute(this, ' + ${route.id} + ', ' + ${userId} + '); return false;'"/>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <div th:each="location : ${unlikedLocations}">
-            <a th:href="@{/locations/{locationId}(locationId=${location.id})}">
-                <div class="cardItem flex-column"
-                     th:style="'background-image: url(/elements/loc' + ${location.id} + '/catAndTag.png);'">
-                    <div class="cardItemNameLikeWrapper flex-row">
-                        <p class="cardItemName flex-column" th:text="${location.name}">Название локации</p>
-                        <img class="like"
-                             th:src="@{/elements/notLiked.svg}"
-                             th:onclick="'toggleLike(this, ' + ${location.id} + ', ' + ${userId} + '); return false;'"/>
+                </a>
+            </div>
+
+            <!-- Понравившиеся локации  -->
+            <div th:each="location : ${likedLocations}">
+                <a th:href="@{/locations/{locationId}(locationId=${location.id})}">
+                    <div class="cardItem flex-column"
+                         th:style="'background-image: url(/elements/loc' + ${location.id} + '/catAndTag.png);'">
+                        <div class="cardItemNameLikeWrapper flex-row">
+                            <p class="cardItemName flex-column" th:text="${location.name}">Название локации</p>
+                            <img class="like"
+                                 th:src="@{/elements/liked.svg}"
+                                 th:onclick="'toggleLikeLocation(this, ' + ${location.id} + ', ' + ${userId} + '); return false;'"/>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
+
+            <!-- Непонравившиеся маршруты -->
+            <div th:each="route : ${unlikedRoutes}">
+                <a th:href="@{/routes/{routeId}(routeId=${route.id})}">
+                    <div class="cardItem flex-column"
+                         th:style="'background-image: url(/elements/route' + ${route.id} + '/catAndTag.png);'">
+                        <div class="cardItemNameLikeWrapper flex-row">
+                            <p class="cardItemName flex-column" th:text="${route.name}">Название маршрута</p>
+                            <img class="like"
+                                 th:src="@{/elements/notLiked.svg}"
+                                 th:onclick="'toggleLikeRoute(this, ' + ${route.id} + ', ' + ${userId} + '); return false;'"/>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Непонравившиеся локации -->
+            <div th:each="location : ${unlikedLocations}">
+                <a th:href="@{/locations/{locationId}(locationId=${location.id})}">
+                    <div class="cardItem flex-column"
+                         th:style="'background-image: url(/elements/loc' + ${location.id} + '/catAndTag.png);'">
+                        <div class="cardItemNameLikeWrapper flex-row">
+                            <p class="cardItemName flex-column" th:text="${location.name}">Название локации</p>
+                            <img class="like"
+                                 th:src="@{/elements/notLiked.svg}"
+                                 th:onclick="'toggleLikeLocation(this, ' + ${location.id} + ', ' + ${userId} + '); return false;'"/>
+                        </div>
+                    </div>
+                </a>
+            </div>
     </div>
 </div>
 <script th:src="@{/scripts/like.js}" defer></script>

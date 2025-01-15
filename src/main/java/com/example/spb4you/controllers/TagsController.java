@@ -1,9 +1,11 @@
 package com.example.spb4you.controllers;
 
 import com.example.spb4you.models.Location;
+import com.example.spb4you.models.Route;
 import com.example.spb4you.models.Tag;
 import com.example.spb4you.models.User;
 import com.example.spb4you.services.LocationService;
+import com.example.spb4you.services.RouteService;
 import com.example.spb4you.services.TagService;
 import com.example.spb4you.services.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +29,9 @@ public class TagsController {
 
     @Autowired
     private LocationService locationService;
+
+    @Autowired
+    private RouteService routeService;
 
     @Autowired
     private UserService userService;
@@ -61,11 +66,32 @@ public class TagsController {
 
             // Получаем пользователя по userId из сессии
             User user = userService.findById(userId).orElse(null);
-            List<Integer> likedLocationsList = user != null ? user.getLikedLocationsList() : new ArrayList<>();
 
-            // Инициализируем списки дляLiked и Unliked локаций
+            // Получаем списки понравившихся
+            List<Integer> likedLocationsList = user != null ? user.getLikedLocationsList() : new ArrayList<>();
+            List<Integer> likedRoutesList = user != null ? user.getLikedRoutesList() : new ArrayList<>();
+
+            // Инициализируем списки для Liked и Unliked маршрутов и локаций
+            List<Route> likedRoutes = new ArrayList<>();
+            List<Route> unlikedRoutes = new ArrayList<>();
             List<Location> likedLocations = new ArrayList<>();
             List<Location> unlikedLocations = new ArrayList<>();
+
+            // Фильтруем маршруты по tagId
+            List<Route> routes = routeService.findAll()
+                    .stream()
+                    .filter(route -> route.getTagIdList().stream()
+                            .anyMatch(id -> id.equals(tagId))) // Проверка наличия tagId
+                    .toList();
+
+            // Разделяем маршруты на понравившиеся и непонравившиеся
+            for (Route route : routes) {
+                if (likedRoutesList.contains(route.getId())) {
+                    likedRoutes.add(route); // Добавляем в понравившиеся
+                } else {
+                    unlikedRoutes.add(route); // Добавляем в непонравившиеся
+                }
+            }
 
             // Фильтруем локации по tagId
             List<Location> locations = locationService.findAll()
@@ -83,14 +109,20 @@ public class TagsController {
                 }
             }
 
-            // Добавляем оба списка в модель
+            // Сначала добавляем маршруты в модель
+            model.addAttribute("likedRoutes", likedRoutes);
+            model.addAttribute("unlikedRoutes", unlikedRoutes);
+
+            // Затем добавляем локации
             model.addAttribute("likedLocations", likedLocations);
             model.addAttribute("unlikedLocations", unlikedLocations);
             model.addAttribute("userId", userId);
+
             return "tagpage"; // Возвращаем имя представления
         }
 
         return "error"; // Возвращаем страницу ошибки, если тег не найден
     }
+
 
 }

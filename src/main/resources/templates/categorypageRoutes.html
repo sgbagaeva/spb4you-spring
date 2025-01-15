@@ -35,13 +35,28 @@
     <img class="tagPageDescStick" th:src="@{/elements/tagPageDescStick.svg}">
 
     <div id="cardItemWrapper">
-        <div th:each="route : ${routes}">
+        <div th:each="route : ${likedRoutes}">
             <a th:href="@{/routes/{routeId}(routeId=${route.id})}">
                 <div class="cardItem flex-column"
                      th:style="'background-image: url(/elements/route' + ${route.id} + '/catAndTag.png);'">
                     <div class="cardItemNameLikeWrapper flex-row">
                         <p class="cardItemName flex-column" th:text="${route.name}">Название маршрута</p>
-                        <img class="like" th:src="@{/elements/notLiked.svg}">
+                        <img class="like"
+                             th:src="@{/elements/liked.svg}"
+                             th:onclick="'toggleLikeRoute(this, ' + ${route.id} + ', ' + ${userId} + '); return false;'"/>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div th:each="route : ${unlikedRoutes}">
+            <a th:href="@{/routes/{routeId}(routeId=${route.id})}">
+                <div class="cardItem flex-column"
+                     th:style="'background-image: url(/elements/route' + ${route.id} + '/catAndTag.png);'">
+                    <div class="cardItemNameLikeWrapper flex-row">
+                        <p class="cardItemName flex-column" th:text="${route.name}">Название маршрута</p>
+                        <img class="like"
+                             th:src="@{/elements/notLiked.svg}"
+                             th:onclick="'toggleLikeRoute(this, ' + ${route.id} + ', ' + ${userId} + '); return false;'"/>
                     </div>
                 </div>
             </a>

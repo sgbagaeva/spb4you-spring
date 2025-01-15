@@ -43,7 +43,7 @@
                         <p class="cardItemName flex-column" th:text="${location.name}">Название локации</p>
                         <img class="like"
                              th:src="@{/elements/liked.svg}"
-                             th:onclick="'toggleLike(this, ' + ${location.id} + ', ' + ${userId} + '); return false;'"/>
+                             th:onclick="'toggleLikeLocation(this, ' + ${location.id} + ', ' + ${userId} + '); return false;'"/>
                     </div>
                 </div>
             </a>
@@ -56,7 +56,7 @@
                         <p class="cardItemName flex-column" th:text="${location.name}">Название локации</p>
                         <img class="like"
                              th:src="@{/elements/notLiked.svg}"
-                             th:onclick="'toggleLike(this, ' + ${location.id} + ', ' + ${userId} + '); return false;'"/>
+                             th:onclick="'toggleLikeLocation(this, ' + ${location.id} + ', ' + ${userId} + '); return false;'"/>
                     </div>
                 </div>
             </a>
