@@ -17,8 +17,8 @@
     <div class="signWindow flex-column" >
         <p class="signFormNameText" > Регистрация</p>
         <form id="reg-form" class="flex-column" name="reg-form" th:action="@{/users/registry}" method="post" th:object="${user}">
-            <label for="firstName" >Имя пользователя</label>
-            <input type="text" name="first-name" id="firstName" th:field="*{firstName}" required placeholder="Введите имя">
+            <label for="username" >Имя пользователя</label>
+            <input type="text" name="username" id="username" th:field="*{username}" required placeholder="Введите имя">
             <label for="user-email" >Почта</label>
             <input type="email" name="user-email" id="user-email" th:field="*{email}" required placeholder="Введите почту">
             <label for="user-pwd" >Пароль</label>

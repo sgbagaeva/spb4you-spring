@@ -13,27 +13,25 @@
 <body>
 <!-- Основной контент -->
 <div class="main-content" id="main-content">
-    <div class="photo-section">
-        <h2 class="photo-title">Управление локациями/маршрутами</h2>
-        <ul class="photo-list">
-            <li class="photo-item">
-                <a th:href="@{/admins/manage-locations}">
-                    <img th:attr="src=@{'/elements/locationsMain.png'},
-                          alt='Локации'"
-                         class="photo-image" />
-                </a>
-            </li>
+    <h2 class="text-title">Управление локациями/маршрутами</h2>
+    <ul class="photo-list">
+        <li class="photo-item">
+            <a th:href="@{/admins/manage-locations}">
+                <img th:attr="src=@{'/elements/locationsMain.png'},
+                      alt='Локации'"
+                     class="photo-image" />
+            </a>
+        </li>
 
-            <li class="photo-item">
-                <a th:href="@{/admins/manage-routes}">
-                    <img th:attr="src=@{'/elements/routesMain.png'},
-                          alt='Маршруты'"
-                         class="photo-image" />
-                </a>
-            </li>
-            <li class="photo-item"></li>
-        </ul>
-    </div>
+        <li class="photo-item">
+            <a th:href="@{/admins/manage-routes}">
+                <img th:attr="src=@{'/elements/routesMain.png'},
+                      alt='Маршруты'"
+                     class="photo-image" />
+            </a>
+        </li>
+        <li class="photo-item"></li>
+    </ul>
 </div>
 <script>
     $(document).ready(function() {

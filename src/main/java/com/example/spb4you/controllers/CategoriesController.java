@@ -58,6 +58,7 @@ public class CategoriesController {
 
     @GetMapping("/locations/{categoryId}")
     public String showLocationsCategory(@PathVariable("categoryId") Integer categoryId, Model model, HttpSession session) {
+        // Получаем userId из сессии
         Integer userId = (Integer) session.getAttribute("userId");
         Category category = categoryService.findById(categoryId).orElse(null);
 
@@ -65,10 +66,10 @@ public class CategoriesController {
             model.addAttribute("category", category);
 
             // Получаем пользователя по userId из сессии
-            User user = userService.findById(userId).orElse(null);
+            User user = userId != null ? userService.findById(userId).orElse(null) : null;
             List<Integer> likedLocationsList = user != null ? user.getLikedLocationsList() : new ArrayList<>();
 
-            // Инициализируем списки дляLiked и Unliked локаций
+            // Инициализируем списки для Liked и Unliked локаций
             List<Location> likedLocations = new ArrayList<>();
             List<Location> unlikedLocations = new ArrayList<>();
 
@@ -79,23 +80,29 @@ public class CategoriesController {
                             .anyMatch(id -> id.equals(categoryId))) // Проверка наличия categoryId в списке
                     .toList();
 
-            // Разделяем локации на понравившиеся и непонравившиеся
-            for (Location location : locations) {
-                if (likedLocationsList.contains(location.getId())) {
-                    likedLocations.add(location); // Добавляем в понравившиеся
-                } else {
-                    unlikedLocations.add(location); // Добавляем в непонравившиеся
+            // Если userId не найден, добавляем все локации в unlikedLocations
+            if (userId == null) {
+                unlikedLocations.addAll(locations);
+            } else {
+                // Разделяем локации на понравившиеся и непонравившиеся
+                for (Location location : locations) {
+                    if (likedLocationsList.contains(location.getId())) {
+                        likedLocations.add(location); // Добавляем в понравившиеся
+                    } else {
+                        unlikedLocations.add(location); // Добавляем в непонравившиеся
+                    }
                 }
             }
 
             // Добавляем оба списка в модель
             model.addAttribute("likedLocations", likedLocations);
             model.addAttribute("unlikedLocations", unlikedLocations);
-            model.addAttribute("userId", userId);
-            return "categorypageLocs";
+            return "categorypageLocs"; // Возвращаем имя представления
         }
-        return "error";
+
+        return "error"; // Возвращаем страницу ошибки, если категория не найдена
     }
+
 
     @GetMapping("/routes")
     public  String showCategoryChoiceRoute(Model model) {
@@ -109,6 +116,7 @@ public class CategoriesController {
 
     @GetMapping("/routes/{categoryId}")
     public String showRoutesCategory(@PathVariable("categoryId") Integer categoryId, Model model, HttpSession session) {
+        // Получаем userId из сессии
         Integer userId = (Integer) session.getAttribute("userId");
         Category category = categoryService.findById(categoryId).orElse(null);
 
@@ -116,7 +124,7 @@ public class CategoriesController {
             model.addAttribute("category", category);
 
             // Получаем пользователя по userId из сессии
-            User user = userService.findById(userId).orElse(null);
+            User user = userId != null ? userService.findById(userId).orElse(null) : null;
             List<Integer> likedRoutesList = user != null ? user.getLikedRoutesList() : new ArrayList<>();
 
             // Инициализируем списки для понравившихся и непонравившихся маршрутов
@@ -130,22 +138,28 @@ public class CategoriesController {
                             .anyMatch(id -> id.equals(categoryId))) // Проверка наличия categoryId в списке
                     .toList();
 
-            // Разделяем маршруты на понравившиеся и непонравившиеся
-            for (Route route : routes) {
-                if (likedRoutesList.contains(route.getId())) {
-                    likedRoutes.add(route); // Добавляем в понравившиеся
-                } else {
-                    unlikedRoutes.add(route); // Добавляем в непонравившиеся
+            // Если userId не найден, добавляем все маршруты в unlikedRoutes
+            if (userId == null) {
+                unlikedRoutes.addAll(routes);
+            } else {
+                // Разделяем маршруты на понравившиеся и непонравившиеся
+                for (Route route : routes) {
+                    if (likedRoutesList.contains(route.getId())) {
+                        likedRoutes.add(route); // Добавляем в понравившиеся
+                    } else {
+                        unlikedRoutes.add(route); // Добавляем в непонравившиеся
+                    }
                 }
             }
 
             // Добавляем оба списка в модель
             model.addAttribute("likedRoutes", likedRoutes);
             model.addAttribute("unlikedRoutes", unlikedRoutes);
-            model.addAttribute("userId", userId);
             return "categorypageRoutes"; // Указываем имя шаблона для отображения
         }
+
         return "error"; // Возврат ошибки, если категория не найдена
     }
+
 
 }

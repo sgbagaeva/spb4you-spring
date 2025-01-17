@@ -87,8 +87,11 @@ public class AdminController {
     }
 
     @GetMapping("/manage-locations/{locationId}")
-    public String manageLocation(@PathVariable("locationId") Integer locationId) {
-        return "admin-pages/manage-location"; // возвращаем имя шаблона
+    public String manageLocation(@PathVariable("locationId") Integer locationId, Model model) {
+        Location location = locationService.findById(locationId).orElse(null);
+        assert location != null;
+        model.addAttribute("location", location);
+        return "admin-pages/manage-loc"; // возвращаем имя шаблона
     }
 
 }

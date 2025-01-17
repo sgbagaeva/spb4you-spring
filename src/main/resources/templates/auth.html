@@ -17,8 +17,8 @@
     <div class="signWindow flex-column" >
         <p class="signFormNameText" > Авторизация</p>
         <form id="auth-form" class="flex-column" th:action="@{/users/login}" method="post" th:object="${user}">
-            <label for="firstName" >Имя пользователя</label>
-            <input type="text" name="first-name" id="firstName" th:field="*{firstName}" required placeholder="Введите имя">
+            <label for="username" >Имя пользователя</label>
+            <input type="text" name="username" id="username" th:field="*{username}" required placeholder="Введите имя">
             <label for="user-pwd" >Пароль</label>
             <div class="passwordEyeContainer flex-row">
 

@@ -14,18 +14,38 @@
 <body>
 <!-- Основной контент -->
 <div class="main-content" id="main-content">
-    <div class="photo-section">
-        <h2 class="photo-title">Управление локациями/маршрутами</h2>
-        <ul class="photo-list">
-            <li class="photo-item" th:each="location : ${locations}">
-                <a th:href="@{/admins/manage-locations/{id}(id=${location.id})}">
-                    <p th:text="${location.name}">Название локации</p>
-                </a>
-            </li>
-
-        </ul>
+    <h2 class="text-title">Управление локациями/маршрутами</h2>
+    <div class="text-section">
+        <div th:each="location : ${locations}">
+            <a th:href="@{/admins/manage-locations/{id}(id=${location.id})}">
+                <p class="location-item" th:text="${location.name}">Название локации</p>
+            </a>
+        </div>
     </div>
+    <!-- Кнопка "Добавить" -->
+    <div class="add-button">Добавить</div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('.location-item').on('click', function(e) {
+            e.preventDefault(); // Предотвращает переход по ссылке
+
+            // Получаем URL из родительского <a>
+            var url = $(this).closest('a').attr('href');
+
+            $.ajax({
+                url: url, // Используем значение атрибута href
+                type: 'GET',
+                success: function(data) {
+                    $('#main-content').html(data); // Обновляем основной контент
+                },
+                error: function() {
+                    alert('Ошибка при загрузке данных.');
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
 

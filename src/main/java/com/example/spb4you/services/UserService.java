@@ -16,8 +16,8 @@ public class UserService extends GenericService<User, Integer> {
     }
 
     // Метод для поиска пользователя по имени
-    public Optional<User> findByFirstName(String firstName) {
-        return userRepository.findByFirstName(firstName);
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
     // Метод для поиска пользователя по email

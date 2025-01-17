@@ -58,6 +58,7 @@ public class TagsController {
 
     @GetMapping("/{tagId}")
     public String showTag(@PathVariable("tagId") Integer tagId, Model model, HttpSession session) {
+        // Получаем userId из сессии
         Integer userId = (Integer) session.getAttribute("userId");
         Tag tag = tagService.findById(tagId).orElse(null);
 
@@ -65,7 +66,7 @@ public class TagsController {
             model.addAttribute("tag", tag);
 
             // Получаем пользователя по userId из сессии
-            User user = userService.findById(userId).orElse(null);
+            User user = userId != null ? userService.findById(userId).orElse(null) : null;
 
             // Получаем списки понравившихся
             List<Integer> likedLocationsList = user != null ? user.getLikedLocationsList() : new ArrayList<>();
@@ -84,12 +85,17 @@ public class TagsController {
                             .anyMatch(id -> id.equals(tagId))) // Проверка наличия tagId
                     .toList();
 
-            // Разделяем маршруты на понравившиеся и непонравившиеся
-            for (Route route : routes) {
-                if (likedRoutesList.contains(route.getId())) {
-                    likedRoutes.add(route); // Добавляем в понравившиеся
-                } else {
-                    unlikedRoutes.add(route); // Добавляем в непонравившиеся
+            // Если userId не найден, добавляем все маршруты в unlikedRoutes
+            if (userId == null) {
+                unlikedRoutes.addAll(routes);
+            } else {
+                // Разделяем маршруты на понравившиеся и непонравившиеся
+                for (Route route : routes) {
+                    if (likedRoutesList.contains(route.getId())) {
+                        likedRoutes.add(route); // Добавляем в понравившиеся
+                    } else {
+                        unlikedRoutes.add(route); // Добавляем в непонравившиеся
+                    }
                 }
             }
 
@@ -100,29 +106,33 @@ public class TagsController {
                             .anyMatch(id -> id.equals(tagId))) // Проверка наличия tagId
                     .toList();
 
-            // Разделяем локации на понравившиеся и непонравившиеся
-            for (Location location : locations) {
-                if (likedLocationsList.contains(location.getId())) {
-                    likedLocations.add(location); // Добавляем в понравившиеся
-                } else {
-                    unlikedLocations.add(location); // Добавляем в непонравившиеся
+            // Если userId не найден, добавляем все локации в unlikedLocations
+            if (userId == null) {
+                unlikedLocations.addAll(locations);
+            } else {
+                // Разделяем локации на понравившиеся и непонравившиеся
+                for (Location location : locations) {
+                    if (likedLocationsList.contains(location.getId())) {
+                        likedLocations.add(location); // Добавляем в понравившиеся
+                    } else {
+                        unlikedLocations.add(location); // Добавляем в непонравившиеся
+                    }
                 }
             }
 
-            // Сначала добавляем маршруты в модель
+            // Добавляем маршруты в модель
             model.addAttribute("likedRoutes", likedRoutes);
             model.addAttribute("unlikedRoutes", unlikedRoutes);
 
-            // Затем добавляем локации
+            // Добавляем локации
             model.addAttribute("likedLocations", likedLocations);
             model.addAttribute("unlikedLocations", unlikedLocations);
-            model.addAttribute("userId", userId);
-
             return "tagpage"; // Возвращаем имя представления
         }
 
         return "error"; // Возвращаем страницу ошибки, если тег не найден
     }
+
 
 
 }

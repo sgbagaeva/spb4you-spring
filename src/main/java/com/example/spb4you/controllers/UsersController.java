@@ -79,7 +79,7 @@ public class UsersController {
         user.setRole("Пользователь");
         userService.save(user);
 
-        model.addAttribute("firstName", user.getFirstName()); // Сохраняем имя пользователя в модели
+        model.addAttribute("username", user.getUsername()); // Сохраняем имя пользователя в модели
         // Перенаправление на личную страницу пользователя
         return "redirect:/users/index/" + user.getId(); // Используем ID для формирования URL
     }
@@ -93,7 +93,7 @@ public class UsersController {
     @PostMapping("/login")
     public String loginUser(@ModelAttribute User user, HttpSession session, Model model) {
         // Проверка на существующего пользователя
-        User existingUser = userService.findByFirstName(user.getFirstName()).orElse(null);
+        User existingUser = userService.findByUsername(user.getUsername()).orElse(null);
 // ВАЖНО - добавить обработку при совпадении имён
         if (existingUser == null || !existingUser.getPassword().equals(user.getPassword())) {
             model.addAttribute("errorMessage", "Ошибка: Неверное имя пользователя или пароль");

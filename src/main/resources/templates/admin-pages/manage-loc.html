@@ -14,19 +14,18 @@
 <body>
 <!-- Основной контент -->
 <div class="main-content" id="main-content">
-    <h2 class="text-title">Управление локациями/маршрутами</h2>
-    <div class="text-section">
-        <div class="photo-item" th:each="route : ${routes}">
-            <a th:href="@{/admins/manage-routes/{id}(id=${route.id})}">
-                <p class="route-item" th:text="${route.name}">Название маршрута</p>
-            </a>
+    <div class="image-container">
+        <img th:attr="src=@{'/elements/loc' + ${location.id} + '/forMap.png'},
+            title='Фото с локации с ID: ' + ${location.id},
+            alt='Фото с локации с ID: ' + ${location.id}"
+             class="item-image" />
+        <div class="button-container">
+            <button class="action-button edit-button">Редактировать</button>
+            <button class="action-button delete-button">Удалить</button>
         </div>
-
     </div>
-    <!-- Кнопка "Добавить" -->
-    <div class="add-button">Добавить</div>
 </div>
+
 </body>
 </html>
-
 
