@@ -1,0 +1,68 @@
+/* Общие настройки для страницы */
+body {
+    display: flex;
+    justify-content: center; /* Центрируем контейнер по горизонтали */
+    align-items: center; /* Центрируем контейнер по вертикали */
+    height: 100vh; /* Высота на всю видимую часть окна */
+    margin: 0; /* Убираем отступы по умолчанию */
+    background-color: #FBFBFB; /* Цвет фона страницы */
+}
+
+/* Контейнер для успешного сообщения */
+.success-container {
+    box-sizing: border-box;
+    position: relative; /* Устанавливаем относительно */
+    width: 1430px; /* Ширина контейнера */
+    height: 488px; /* Высота контейнера */
+    background: #EDEDED; /* Цвет фона контейнера */
+    border: 1px solid #000000; /* Черная рамка */
+    border-radius: 30px; /* Закругленные углы */
+    display: flex; /* Используем flexbox для размещения элементов */
+    flex-direction: column; /* Элементы по колонкам */
+    justify-content: center; /* Центрируем содержимое по вертикали */
+    align-items: center; /* Центрируем содержимое по горизонтали */
+}
+
+/* Заголовок сообщения */
+.message h1 {
+    font-family: 'Unbounded', sans-serif; /* Шрифт заголовков */
+    font-weight: 400; /* Стиль шрифта */
+    font-size: 44px; /* Размер шрифта */
+    line-height: 40px; /* Высота строки */
+    color: #000000; /* Цвет текста */
+    text-align: center; /* Центрирование текста */
+}
+
+/* Контейнер для кнопок */
+.buttons-container {
+    display: flex; /* Редактировать контейнер кнопок как flexbox */
+    justify-content: center; /* Центрируем кнопки по горизонтали */
+    margin-top: 30px; /* Отступ сверху для кнопок */
+}
+
+/* Общие стили для кнопок */
+.button {
+    box-sizing: border-box; /* Корректное округление */
+    width: 304px; /* Ширина кнопки */
+    height: 68px; /* Высота кнопки */
+    background: #FEF8E7; /* Цвет фона кнопки */
+    border: 1px solid #000000; /* Черная граница */
+    border-radius: 20px; /* Закругленные углы */
+    font-family: 'Unbounded', sans-serif; /* Шрифт кнопок */
+    font-weight: 400; /* Стиль шрифта */
+    font-size: 24px; /* Размер шрифта */
+    line-height: 40px; /* Высота строки */
+    color: #000000; /* Цвет текста кнопки */
+    text-align: center; /* Центрирование текста в кнопке */
+    display: flex; /* Используем flexbox для введения текста */
+    justify-content: center; /* Центрируем текст кнопки по горизонтали */
+    align-items: center; /* Центрируем текст кнопки по вертикали */
+    margin: 0 50px; /* Горизонтальные отступы между кнопками */
+    text-decoration: none; /* Убираем подчеркивание у ссылок */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+}
+
+/* Эффекты при наведении на кнопки */
+.button:hover {
+    background-color: #d3d3d3; /* Цвет фона при наведении */
+}

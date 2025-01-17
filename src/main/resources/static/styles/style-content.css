@@ -143,16 +143,17 @@ a {
 .action-button {
     box-sizing: border-box;
     width: 280px; /* Уменьшаем ширину кнопки */
-    height: 58px; /* Уменьшаем высоту кнопки */
+    height: 58px; /* Высота кнопки */
     background: #FEF8E7; /* Цвет фона кнопки */
     border: 1px solid #000000; /* Черная граница */
     border-radius: 20px; /* Закругленные углы кнопки */
-    font-family: 'Unbounded';
-    font-style: normal;
+    font-family: 'Unbounded', sans-serif; /* Шрифт */
     font-weight: 400; /* Внешний вид шрифта */
-    font-size: 20px; /* Уменьшенный размер шрифта */
-    line-height: 40px; /* Высота строки */
+    font-size: 20px; /* Размер шрифта */
     color: #000000; /* Цвет текста кнопки */
+    display: flex; /* Используем flexbox для центровки текста */
+    justify-content: center; /* Центрируем текст по горизонтали */
+    align-items: center; /* Центрируем текст по вертикали */
     cursor: pointer; /* Указываем, что элемент можно нажимать */
     margin: 0 50px; /* Отступы между кнопками */
 }

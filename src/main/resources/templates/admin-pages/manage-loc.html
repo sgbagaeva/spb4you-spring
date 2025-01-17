@@ -20,8 +20,8 @@
             alt='Фото с локации с ID: ' + ${location.id}"
              class="item-image" />
         <div class="button-container">
-            <button class="action-button edit-button">Редактировать</button>
-            <button class="action-button delete-button">Удалить</button>
+            <a th:href="@{/locations/update/{locationId}(locationId=${location.id})}" class="action-button edit-button">Редактировать</a>
+            <a th:href="@{/locations/delete/{locationId}(locationId=${location.id})}" class="action-button delete-button">Удалить</a>
         </div>
     </div>
 </div>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/styles/style-content.css}"> <!-- Используем Thymeleaf для подключения CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Управление категориями</title>
+</head>
+<body>
+<!-- Основной контент -->
+<div class="main-content" id="main-content">
+    <h2 class="text-title">Управление категориями</h2>
+    <ul class="photo-list">
+        <li class="photo-item">
+            <a th:href="@{/admins/manage-location-cats}">
+                <img th:attr="src=@{'/elements/locationsMain.png'},
+                      alt='Локации'"
+                     class="photo-image" />
+            </a>
+        </li>
+
+        <li class="photo-item">
+            <a th:href="@{/admins/manage-route-cats}">
+                <img th:attr="src=@{'/elements/routesMain.png'},
+                      alt='Маршруты'"
+                     class="photo-image" />
+            </a>
+        </li>
+        <li class="photo-item"></li>
+    </ul>
+</div>
+<script>
+    $(document).ready(function() {
+        $('.photo-image').on('click', function(e) {
+            e.preventDefault(); // Предотвращает переход по ссылке
+
+            // Получаем URL из родительского <a>
+            var url = $(this).closest('a').attr('href');
+
+            $.ajax({
+                url: url, // Используем значение атрибута href
+                type: 'GET',
+                success: function(data) {
+                    $('#main-content').html(data); // Обновляем основной контент
+                },
+                error: function() {
+                    alert('Ошибка при загрузке данных.');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
+
+

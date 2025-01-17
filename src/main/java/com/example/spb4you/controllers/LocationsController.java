@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/locations")
@@ -92,4 +93,32 @@ public class LocationsController {
                 .toList();
         return ResponseEntity.ok(locations); // Возвращаем список локаций по соответствующему тегу
     }
+
+    @GetMapping("/update/{locationId}")
+    public String updateLocation(@PathVariable Integer locationId, HttpSession session, Model model) {
+        Location location = locationService.findById(locationId).orElse(null);
+        assert location != null;
+        model.addAttribute("location", location);
+        session.setAttribute("locationId", locationId);
+        return "update-location"; // Название шаблона для редактирования
+    }
+
+//    @PostMapping("/update")
+//    public String updateLocation(@ModelAttribute Location location) {
+//        locationService.save(location);
+//        return "redirect:/locations"; // Вернуться к списку локаций
+//    }
+
+    @GetMapping("/delete/{locationId}")
+    public String deleteLocation(@PathVariable Integer locationId, Model model) {
+        Location location = locationService.findById(locationId).orElse(null);
+        model.addAttribute("location", location);
+        return "nots/del_location_ask";
+    }
+
+//    @GetMapping("/delete/{locationId}")
+//    public String deleteLocation(@PathVariable Integer locationId) {
+//        // locationService.deleteById(locationId);
+//        return "nots/del_location_success"; // Вернуться к списку локаций после удаления
+//    }
 }

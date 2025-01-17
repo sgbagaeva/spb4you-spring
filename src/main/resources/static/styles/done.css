@@ -1,0 +1,81 @@
+/* Контейнер для успешной регистрации */
+.success-container {
+    display: flex; /* Включаем Flexbox */
+    flex-direction: column; /* Располагаем дочерние элементы по вертикали */
+    justify-content: center; /* Центрируем содержимое по вертикали */
+    align-items: center; /* Центрируем содержимое по горизонтали */
+    width: 100vw; /* Ширина контейнера равна ширине окна */
+    height: 100vh; /* Высота контейнера равна высоте окна */
+    background: #FBFBFB; /* Цвет фона */
+}
+
+/* Rectangle 98 - Желтый фон для сообщения */
+.rectangle-98 {
+    box-sizing: border-box;
+    width: 1430px; /* Ширина фона */
+    height: 212px; /* Высота фона */
+    background: #FEF8E7; /* Цвет фона */
+    border: 3.03509px solid #000000; /* Цвет границы */
+    border-radius: 30px; /* Закругление углов */
+    display: flex; /* Используем flexbox для центрирования текста внутри */
+    justify-content: center; /* Центрируем содержимое по горизонтали */
+    align-items: center; /* Центрируем содержимое по вертикали */
+}
+
+/* Rectangle 99 - Серый фон для сообщения */
+.rectangle-99 {
+    box-sizing: border-box;
+    width: 1430px; /* Ширина фона */
+    height: 212px; /* Высота фона */
+    background: #EDEDED; /* Цвет фона */
+    border: 3.03509px solid #000000; /* Цвет границы */
+    border-radius: 30px; /* Закругление углов */
+    display: flex; /* Используем flexbox для центрирования текста внутри */
+    justify-content: center; /* Центрируем содержимое по горизонтали */
+    align-items: center; /* Центрируем содержимое по вертикали */
+}
+
+/* Заголовок "Регистрация прошла успешно" */
+.registration-success {
+    font-family: 'Unbounded', sans-serif; /* Шрифт заголовка */
+    font-style: normal; /* Нормальный стиль шрифта */
+    font-weight: 400; /* Нормальное начертание */
+    font-size: 44px; /* Размер шрифта */
+    line-height: 55px; /* Высота строки */
+    color: #000000; /* Цвет текста */
+}
+
+/* Контейнер для кнопок */
+.buttons-container {
+    display: flex; /* Используем flexbox для размещения кнопок в линию */
+    margin-top: 30px; /* Отступ сверху от верхнего прямоугольника */
+    width: 1430px; /* Устанавливаем ширину, равную ширине верхнего прямоугольника */
+    justify-content: space-between; /* Распределяем пространство между кнопками */
+}
+
+/* Общие стили для кнопок */
+.rectangle-101,
+.rectangle-102 {
+    box-sizing: border-box;
+    width: 540px; /* Ширина кнопки */
+    height: 72px; /* Высота кнопки */
+    border: 3px solid #000000; /* Цвет границы */
+    border-radius: 15px; /* Закругление углов */
+    display: flex; /* Используем flexbox для центрирования текста */
+    justify-content: center; /* Центрируем содержимое по горизонтали */
+    align-items: center; /* Центрируем содержимое по вертикали */
+    text-decoration: none; /* Убираем подчеркивание для ссылок */
+    font-family: 'Unbounded', sans-serif; /* Шрифт кнопок */
+    font-style: normal; /* Нормальный стиль шрифта */
+    font-weight: 400; /* Нормальное начертание */
+    font-size: 24px; /* Размер шрифта */
+    line-height: 29px; /* Высота строки */
+    color: #000000; /* Цвет текста */
+}
+
+/* Курсор при наведении на кнопки */
+.rectangle-101:hover,
+.rectangle-102:hover {
+    cursor: pointer; /* Меняем курсор на указатель при наведении */
+    background: #FEC556; /* Меняем цвет фона при наведении (по желанию) */
+}

@@ -1,8 +1,10 @@
 package com.example.spb4you.controllers;
 
+import com.example.spb4you.models.Category;
 import com.example.spb4you.models.Location;
 import com.example.spb4you.models.Route;
 import com.example.spb4you.models.User;
+import com.example.spb4you.services.CategoryService;
 import com.example.spb4you.services.LocationService;
 import com.example.spb4you.services.RouteService;
 import com.example.spb4you.services.UserService;
@@ -31,6 +33,9 @@ public class AdminController {
 
     @Autowired
     private RouteService routeService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/info/list")
     public ResponseEntity<List<User>> listAdmins() {
@@ -92,6 +97,33 @@ public class AdminController {
         assert location != null;
         model.addAttribute("location", location);
         return "admin-pages/manage-loc"; // возвращаем имя шаблона
+    }
+
+    // Маршруты!
+
+    @GetMapping("/manage-categories")
+    public String manageCstegories() {
+        return "admin-pages/manage-cats"; // возвращаем имя шаблона
+    }
+
+    @GetMapping("/manage-location-cats")
+    public String manageLocationCategories(Model model) {
+        List<Category> categories = categoryService.findAll()
+                .stream()
+                .filter(category -> "Локации".equals(category.getType()))
+                .toList();
+        model.addAttribute("categories", categories);
+        return "admin-pages/manage-list-cats"; // возвращаем имя шаблона
+    }
+
+    @GetMapping("/manage-route-cats")
+    public String manageRouteCategories(Model model) {
+        List<Category> categories = categoryService.findAll()
+                .stream()
+                .filter(category -> "Маршруты".equals(category.getType()))
+                .toList();
+        model.addAttribute("categories", categories);
+        return "admin-pages/manage-list-cats"; // возвращаем имя шаблона
     }
 
 }
