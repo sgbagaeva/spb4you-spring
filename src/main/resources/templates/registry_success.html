@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/styles/done.css}"> <!-- Используем Thymeleaf для подключения CSS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script th:src="@{/scripts/script.js}"></script> <!-- Используем Thymeleaf для подключения JS -->
+    <title>Регистрация Успешна</title>
+</head>
+<body>
+<div class="success-container">
+    <!-- Rectangle 98 - Фон для сообщения -->
+    <div class="rectangle-98">
+        <h1 class="registration-success">Регистрация прошла успешно</h1>
+    </div>
+
+    <!-- Контейнер для кнопок -->
+    <div class="buttons-container">
+        <!-- Кнопка "На главную" -->
+        <a th:href="@{/users/index/{userId}(userId=${userId})}" class="rectangle-101 go-to-main">На главную</a> <!-- Измените на правильный путь -->
+
+        <!-- Кнопка "В личный кабинет" -->
+        <a th:href="@{/users/cabinet/{userId}(userId=${userId})}" class="rectangle-102 personal-cabinet">В личный кабинет</a> <!-- Измените на правильный путь -->
+    </div>
+</div>
+</body>
+</html>
+
+

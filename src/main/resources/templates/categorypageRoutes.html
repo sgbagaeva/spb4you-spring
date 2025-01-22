@@ -30,7 +30,7 @@
        class="tagPageName"
        th:text="${category.name.toUpperCase()}">НАЗВАНИЕ КАТЕГОРИИ</p>
 
-    <p class="tagPageDesc" th:text="${category.description}">Описание категории</p>
+    <p class="tagPageDesc" th:utext="${category.description}">Описание категории</p>
 
     <img class="tagPageDescStick" th:src="@{/elements/tagPageDescStick.svg}">
 

@@ -10,14 +10,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script th:src="@{/scripts/script.js}"></script>
+    <script th:src="@{/scripts/cabinet.js}"></script> <!-- Подключаем внешний файл cabinet.js -->
 </head>
 <body class="flex-column">
-<div id="cabinetContainer" class="flex-column">
+<div class="flex-column" id="cabinetContainer" th:data-user-id="${user.id}"> <!-- Передаем userId через data атрибут -->
 
     <div class="cabinetPhotoInfoWrapper flex-row">
         <div class="cabinetPhotoWrapper flex-row">
-            <img class="cabinetPhoto" th:src="@{/elements/avatars/0.png}">
+            <input type="file" id="photoUpload" accept="image/*">
+
+            <img class="cabinetPhoto" th:src="@{/elements/mainPhoto.png}">
         </div>
 
         <div class="cabinetInfoWrapper flex-column">
@@ -28,15 +30,19 @@
             <p class="cabinetInfo" th:text="${user.lastName}">Фамилия</p>
 
             <p class="cabinetInfoLabel">Никнейм:</p>
-            <p class="cabinetInfo" th:text="${user.username}">Фамилия</p>
+            <p class="cabinetInfo" th:text="${user.username}">Никнейм</p>
 
-            <p class="cabinetInfoLabel" >Дата регистрации:
+            <p class="cabinetInfoLabel">Дата регистрации:
                 <span class="cabinetInfoLabel" th:text="${formattedDate} + 'г'">28.10.2024</span>
             </p>
         </div>
 
-        <img class="cabinetFolder" th:src="@{/elements/cabinetFolder.svg}" alt="Папка")>
+        <img class="cabinetFolder" th:src="@{/elements/cabinetFolder.svg}" id="editButton" style="cursor: pointer;">
+    </div>
 
+    <div class="buttonContainer flex-row" style="display: none;">
+        <button id="cancelButton" class="cabinetSaveBtn flex-column">Не сохранять</button>
+        <button id="saveButton" class="cabinetSaveBtn flex-column">Сохранить</button>
     </div>
 
     <a th:href="'/users/' + ${userId} + '/likes'">
@@ -46,12 +52,12 @@
     </a>
 
     <a th:href="@{/users/index/{userId}(userId=${user.id})}">
-        <div class="returnBtn cabinetHomeBtn flex-row">
-            <img class="sign returnArrow" th:src="@{/elements/returnArrow.svg}" alt="Return">
+        <div id="cabinetHomeBtnDisappear" class="returnBtn cabinetHomeBtn flex-row">
             <p class="homeBtnText">На главную</p>
         </div>
     </a>
 
 </div>
+
 </body>
 </html>

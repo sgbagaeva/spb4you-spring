@@ -13,11 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/users")
@@ -31,6 +37,77 @@ public class UsersController {
 
     @Autowired
     private RouteService routeService;
+
+    private static final String uploadDir = "elements/avatars"; // Путь до папки для аватаров
+
+    // Метод для обновления информации о пользователе
+    @PutMapping("/{userId}/update")
+    public ResponseEntity<?> updateUser(
+            @PathVariable Integer userId,
+            @RequestParam String username,
+            @RequestParam String firstName,
+            @RequestParam String lastName,
+            @RequestParam(required = false) MultipartFile photo) {
+
+        User user = userService.findById(userId).orElse(null);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Пользователь не найден"); // обрабатываем ситуацию, когда пользователь не найден
+        }
+
+        user.setUsername(username);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+
+        if (photo != null && !photo.isEmpty()) {
+            // Здесь добавьте код для загрузки изображения, аналогичный методу uploadPhoto
+            // Пример кода можно взять из вашего метода uploadPhoto
+            String fileName = "ava" + userId + ".png";
+            Path path = Paths.get(uploadDir, fileName);
+            try {
+                Files.createDirectories(path.getParent());
+                Files.write(path, photo.getBytes());
+                user.setAvatarPath(fileName);
+            } catch (IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ошибка при загрузке фото");
+            }
+        }
+
+        userService.save(user);
+        return ResponseEntity.ok(user);
+    }
+
+
+    // Метод для загрузки фотографии
+    @PostMapping("/{userId}/uploadPhoto")
+    public ResponseEntity<?> uploadPhoto(
+            @PathVariable Integer userId,
+            @RequestParam MultipartFile photo) {
+
+        User user = userService.findById(userId).orElse(null);
+
+        try {
+            // Создаем новое имя файла
+            String fileName = "ava" + userId + ".png";
+
+            // Путь для сохранения
+            Path path = Paths.get(uploadDir, fileName);
+            Files.createDirectories(path.getParent()); // Создаем директории, если они не существуют
+
+            // Сохраняем файл
+            Files.write(path, photo.getBytes());
+
+            // Сохраняем путь к аватару в БД
+            assert user != null;
+            user.setAvatarPath(fileName);
+            userService.save(user);
+
+            return ResponseEntity.ok(user); // Возвращаем обновленного пользователя с атрибутом avatarPath
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading photo");
+        }
+    }
+
 
     @GetMapping("/info/list")
     public ResponseEntity<List<User>> listUsers() {
@@ -81,7 +158,8 @@ public class UsersController {
 
         model.addAttribute("username", user.getUsername()); // Сохраняем имя пользователя в модели
         // Перенаправление на личную страницу пользователя
-        return "redirect:/users/index/" + user.getId(); // Используем ID для формирования URL
+        // return "redirect:/users/index/" + user.getId(); // Используем ID для формирования URL
+        return "redirect:/users/registry-success/" + user.getId();
     }
 
     @GetMapping("/login")
@@ -109,7 +187,7 @@ public class UsersController {
         } else if ("Администратор".equals(existingUser.getRole())) {
             return "redirect:/admins/index/" + existingUser.getId();
         } else {
-            return "redirect:/error"; // Возвращаем ошибку
+            return "404"; // Возвращаем ошибку
         }
     }
 
@@ -120,12 +198,23 @@ public class UsersController {
     }
     */
 
+    @GetMapping("/registry-success/{userId}")
+    public String registrySuccess(@PathVariable("userId") Integer userId, Model model) {
+        User user = userService.findById(userId).orElse(null);
+        if (user == null) {
+            // Обработка случая, если пользователь не найден
+            return "404"; // Возвращаем ошибку
+        }
+        model.addAttribute("userId", userId);
+        return "registry_success"; // Уведомление об успешной регистрации
+    }
+
     @GetMapping("/index/{userId}")
     public String userInfo(@PathVariable("userId") Integer userId, Model model) {
         User user = userService.findById(userId).orElse(null);
         if (user == null) {
             // Обработка случая, если пользователь не найден
-            return "redirect:/error"; // Возвращаем ошибку
+            return "404"; // Возвращаем ошибку
         }
         model.addAttribute("user", user);
         return "index"; // Главная страница зарегистрированного пользователя
@@ -136,7 +225,7 @@ public class UsersController {
         User user = userService.findById(userId).orElse(null);
         if (user == null) {
             // Обработка случая, если пользователь не найден
-            return "redirect:/error"; // Возвращаем ошибку
+            return "404"; // Возвращаем ошибку
         }
 
         // Форматируем дату в нужный формат
@@ -154,7 +243,7 @@ public class UsersController {
         User user = userService.findById(userId).orElse(null);
         if (user == null) {
             // Обработка случая, если пользователь не найден
-            return "redirect:/error"; // Возвращаем ошибку
+            return "404"; // Возвращаем ошибку
         }
         return "likedPage"; // Страница с избранными локациями и маршрутами
     }
@@ -255,7 +344,7 @@ public class UsersController {
         User user = userService.findById(userId).orElse(null);
         if (user == null) {
             // Обработка случая, если пользователь не найден
-            return "redirect:/error"; // Возвращаем ошибку
+            return "404"; // Возвращаем ошибку
         }
 
         // Получаем список идентификаторов локаций, которые пользователь добавил в избранное
@@ -368,7 +457,7 @@ public class UsersController {
         User user = userService.findById(userId).orElse(null);
         if (user == null) {
             // Обработка случая, если пользователь не найден
-            return "redirect:/error"; // Возвращаем ошибку
+            return "404"; // Возвращаем ошибку
         }
 
         // Получаем список идентификаторов маршрутов, которые пользователь добавил в избранное

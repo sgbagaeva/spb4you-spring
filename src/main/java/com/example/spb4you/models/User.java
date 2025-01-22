@@ -43,6 +43,9 @@ public class User {
     @DateTimeFormat
     private LocalDateTime registrationDate; // Дата регистрации пользователя
 
+    @JsonProperty("avatar_path")
+    private String avatarPath; // Путь к аватару пользователя
+
     @JsonProperty("liked_locations")
     private String likedLocations; // Строка для хранения IDs понравившихся категорий
 
@@ -192,6 +195,18 @@ public class User {
     }
 
     /**
+     * Путь к аватару пользователя
+     * @return avatarPath
+     */
+    public String getAvatarPath() {
+        return avatarPath;
+    }
+
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
+    }
+
+    /**
      * ID понравившихся локаций
      * @return likedLocations
      */
@@ -265,12 +280,13 @@ public class User {
                 Objects.equals(this.email, user.email) &&
                 Objects.equals(this.password, user.password) &&
                 Objects.equals(this.role, user.role) &&
-                Objects.equals(this.registrationDate, user.registrationDate);
+                Objects.equals(this.registrationDate, user.registrationDate) &&
+                Objects.equals(this.avatarPath, user.avatarPath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, firstName, lastName, email, password, role, registrationDate);
+        return Objects.hash(id, username, firstName, lastName, email, password, role, registrationDate, avatarPath);
     }
 
     @Override
@@ -285,6 +301,7 @@ public class User {
         sb.append(" password: ").append(toIndentedString(password)).append("\n");
         sb.append(" role: ").append(toIndentedString(role)).append("\n");
         sb.append(" registration_date: ").append(toIndentedString(registrationDate)).append("\n");
+        sb.append(" avatar_path: ").append(toIndentedString(avatarPath)).append("\n");
         sb.append(" liked_locations: ").append(toIndentedString(likedLocations)).append("\n");
         sb.append(" liked_routes: ").append(toIndentedString(likedRoutes)).append("\n");
         sb.append("}");

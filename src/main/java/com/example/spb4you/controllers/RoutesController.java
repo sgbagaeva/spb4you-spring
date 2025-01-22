@@ -51,7 +51,7 @@ public class RoutesController {
             session.setAttribute("routeId", routeId);
             return "route"; // Имя шаблона Thymeleaf
         }
-        return "error";
+        return "404";
     }
 
     @GetMapping("/map")
@@ -60,13 +60,13 @@ public class RoutesController {
         Integer routeId = (Integer) session.getAttribute("routeId");
         if (routeId == null) {
             // Обработка случая, когда routeId отсутствует в сессии
-            return "redirect:/error"; // или перенаправление на другую страницу
+            return "redirect:/404"; // или перенаправление на другую страницу
         }
 
         Route route = routeService.findById(routeId).orElse(null);
         if (route == null) {
             // Обработка случая, когда маршрут не найдена
-            return "redirect:/error"; // или перенаправление на другую страницу
+            return "redirect:/404"; // или перенаправление на другую страницу
         }
 
         Map<String, List<Double>> pointsMap = pointService.findAll()

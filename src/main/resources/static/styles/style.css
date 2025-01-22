@@ -820,7 +820,7 @@ input {
 	border: 3.04px solid black;
 	gap: 3rem;
 	margin-top: 6%;
-	justify-content: space-evenly;
+	justify-content: space-between;
 }
 
 .cabinetHomeBtn {
@@ -832,14 +832,17 @@ input {
 }
 
 .cabinetPhotoInfoWrapper {
-	gap: 2vw;
 	align-items: flex-start;
-	margin-top: 2rem;
+    margin-top: 2rem;
+    width: 37vw;
+    justify-content: space-between;
+	padding-top: 2vh;
 }
 
 .cabinetPhoto {
-	width: 15vw;
-	height: 15vw;
+	width: 13vw;
+    height: 13vw;
+    margin-right: 3vw;
 }
 
 .cabinetYourActionsWrapper {
@@ -873,18 +876,58 @@ input {
 }
 
 .cabinetFolder {
-	width: 1vw;
+	width: 2vw;
 	cursor: pointer;
-	margin-left: 8vw;
 }
+
+
+#photoUpload {
+    display: block;
+    position: absolute;
+    margin-right: 3vw;
+    width: 12vw;
+    height: 13vw;
+    opacity: 0; /* Сделаем его невидимым по умолчанию */
+}
+
+
+.buttonContainer {
+	top: 70vh;
+    position: absolute;
+    display: none;
+	width: 37vw;
+	justify-content: space-between;
+}
+
+.cabinetSaveBtn {
+	background-color: #FEC556;
+	width: 15vw;
+	height: 3rem;
+	font-family: Unbounded;
+	border-radius: 0.2vw;
+	font-size: 1vw;
+}
+
+#cancelButton {
+	background-color: #D9D9D9;
+}
+
+
+
+#actionButtons {
+    margin-top: 1rem;
+}
+
+#cabinetHomeBtnDisappear {
+	margin-bottom: 5vh;
+}
+
 
 /* ниже css likedPage*/
 
 .likedPageName {
 	font-size: 2vw;
 	margin: 2rem;
-
-
 }
 
 #likedLocationsAndRoutes {
@@ -927,3 +970,60 @@ input {
 .likedCardItem {
 	margin: 3vw 4vw;
 }
+
+/* ниже css 404*/
+
+
+.blueColoredContainer {
+	background-color: #3DA2D6;
+	width: 100%;
+	height: 100vh;
+}
+
+#errorContainer {
+
+	justify-content: space-around;
+}
+
+#leftError {
+	margin-top: 5rem;
+	align-items: flex-start;
+
+}
+
+#rightError {
+	margin-top: 5rem;
+	margin-bottom: 14rem;
+    width: 14vw;
+	margin-left: -9vw;
+    margin-right: 7vw;
+}
+
+#error404 {
+	width: 35vw;
+	margin: 0;
+	margin-bottom: 2rem;
+}
+
+#oops404 {
+	font-size: 1.8vw;
+	margin: 0;
+	margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+#fix404 {
+	font-size: 1.4vw;
+	margin: 0;
+	margin-bottom: 2rem;
+	font-weight: 300;
+}
+
+#rightError {
+	width: 15vw;
+}
+
+.yellowbg {
+	background-color: #FEC556;
+}
+

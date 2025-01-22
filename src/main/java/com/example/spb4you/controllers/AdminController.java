@@ -66,7 +66,7 @@ public class AdminController {
         User user = userService.findById(userId).orElse(null);
         if (user == null) {
             // Обработка случая, если пользователь не найден
-            return "redirect:/error"; // Возвращаем ошибку
+            return "redirect:/404"; // Возвращаем ошибку
         }
         model.addAttribute("user", user);
         return "adminIndex"; // Главная страница администратора

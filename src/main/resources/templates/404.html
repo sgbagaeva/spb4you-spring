@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spb4you</title>
+    <link rel="icon" href="elements/spb4you.ico" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/styles/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+<div id="errorContainer" class="blueColoredContainer flex-row">
+    <div id="leftError" class="flex-column">
+
+        <img id="error404" th:src="@{/elements/404.svg}"></img>
+        <p id="oops404">Ой, кажется страница не найдена :(</p>
+        <p id="fix404">Пока мы исправляем ошибку, вы можете вернуться <br>на предыдущую страницу</p>
+
+
+        <a href="javascript:void(0);" onclick="window.history.back();">
+            <div class="returnBtn homeBtn yellowbg flex-row">
+                <img class="sign returnArrow" th:src="@{/elements/returnArrow.svg}" alt="Вернуться на главную">
+                <p class="homeBtnText">Назад</p>
+            </div>
+        </a>
+
+    </div>
+
+    <img id="rightError" class="flex-column" th:src="@{/elements/error404icon.svg}" alt="Ошибка 404">
+</div>
+</body>
+</html>

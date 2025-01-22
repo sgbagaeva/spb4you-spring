@@ -100,7 +100,7 @@ public class CategoriesController {
             return "categorypageLocs"; // Возвращаем имя представления
         }
 
-        return "error"; // Возвращаем страницу ошибки, если категория не найдена
+        return "404"; // Возвращаем страницу ошибки, если категория не найдена
     }
 
 
@@ -158,7 +158,7 @@ public class CategoriesController {
             return "categorypageRoutes"; // Указываем имя шаблона для отображения
         }
 
-        return "error"; // Возврат ошибки, если категория не найдена
+        return "404"; // Возврат ошибки, если категория не найдена
     }
 
 

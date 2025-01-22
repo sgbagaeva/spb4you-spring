@@ -40,7 +40,7 @@ public class LocationsController {
             session.setAttribute("locationId", locationId);
             return "location"; // Возвращаем HTML-страницу соответствующей локации
         }
-        return "error"; // Если такой локации не существует - возвращаем страницу ошибки
+        return "404"; // Если такой локации не существует - возвращаем страницу ошибки
     }
 
     @GetMapping("/map")
@@ -48,15 +48,15 @@ public class LocationsController {
         // Извлекаем id локации из сессии
         Integer locationId = (Integer) session.getAttribute("locationId");
         if (locationId == null) {
-            // Перенаправление на страницу error, когда locationId отсутствует в сессии
-            return "redirect:/error";
+            // Перенаправление на страницу 404, когда locationId отсутствует в сессии
+            return "redirect:/404";
             // Кстати, нужно сделать страницы ошибок - у нас их сейчас нет
         }
 
         Location location = locationService.findById(locationId).orElse(null);
         if (location == null) {
-            // еренаправление на страницу error, когда локация не найдена
-            return "redirect:/error";
+            // еренаправление на страницу 404, когда локация не найдена
+            return "redirect:/404";
         }
 
         /* Тут предполагаем, что координаты хранятся в строковом формате.
@@ -74,7 +74,7 @@ public class LocationsController {
             locationCoordinates[1] = Double.parseDouble(coordinateParts[1]); // Долгота
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             // Обработка ошибок парсинга координат
-            return "redirect:/error"; // или перенаправление на страницу с ошибкой
+            return "redirect:/404"; // или перенаправление на страницу с ошибкой
         }
 
         // Добавляем координаты и ID локации в модель
