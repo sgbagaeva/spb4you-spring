@@ -8,7 +8,7 @@ WORKDIR /spb4you-spring
 COPY . .
 
 # Сборка приложения
-RUN gradlew build -x test
+RUN ./gradlew build -x test
 
 # Запускаем приложение
 FROM openjdk:17-jdk-slim
