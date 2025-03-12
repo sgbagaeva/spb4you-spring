@@ -23,7 +23,7 @@
     ```
     git clone https://github.com/sgbagaeva/spb4you.git
     ```
-2. Откройте проект в приложении (VS Code, IntelliJ IDEA Community Edition, ...)
+2. Откройте проект в приложении IntelliJ IDEA Community Edition
 
 ## Технологии
 
