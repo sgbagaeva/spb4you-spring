@@ -7,6 +7,9 @@ WORKDIR /spb4you-spring
 # Копируем все файлы проекта в контейнер
 COPY . .
 
+# Устанавливаем права на выполнение для gradlew
+RUN chmod +x gradlew
+
 # Сборка приложения
 RUN ./gradlew build -x test
 
